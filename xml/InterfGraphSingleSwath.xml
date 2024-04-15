@@ -4,14 +4,24 @@
     <operator>Read</operator>
     <sources/>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>${product1}</file>
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>/Users/alexisthierry/Documents/Alex/Polytech/FI4/S8/Proj831/Projet/data/sub_images/sub_images/subset_0_of_S1A_IW_SLC__1SDV_20240108T054408_20240108T054435_052011_0648FF_588C_split_Cal_Orb_Stack_Ifg_Flt.dim</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,239,13671</pixelRegion>
+      <maskNames/>
     </parameters>
   </node>
   <node id="Read(2)">
     <operator>Read</operator>
     <sources/>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>${product2}</file>
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>/Users/alexisthierry/Documents/Alex/Polytech/FI4/S8/Proj831/Projet/data/sub_images/sub_images/subset_0_of_S1A_IW_SLC__1SDV_20240108T054408_20240108T054435_052011_0648FF_588C_split_Cal_Orb_Stack_Ifg_Flt.dim</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,239,13671</pixelRegion>
+      <maskNames/>
     </parameters>
   </node>
   <node id="Apply-Orbit-File">
@@ -65,7 +75,7 @@
       <srpNumberPoints>501</srpNumberPoints>
       <orbitDegree>3</orbitDegree>
       <includeCoherence>true</includeCoherence>
-      <cohWinAz>3</cohWinAz>
+      <cohWinAz>2</cohWinAz>
       <cohWinRg>10</cohWinRg>
       <squarePixel>true</squarePixel>
       <subtractTopographicPhase>true</subtractTopographicPhase>
@@ -165,7 +175,7 @@
       <sourceProduct refid="BandMerge"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>${outputFile}</file>
+      <file>/Users/alexisthierry/Documents/Alex/Polytech/FI4/S8/Proj831/Projet/data/sub_images/sub_images/target.dim</file>
       <formatName>BEAM-DIMAP</formatName>
     </parameters>
   </node>
