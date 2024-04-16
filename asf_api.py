@@ -58,7 +58,7 @@ if __name__ == "__main__":
         print("Les images ont été téléchargées avec succès.")
         
         # Loop through all downloaded files
-        for file in result:
+        for file in files_to_rename:
             # parse json
             json_str = json.loads(str(file))
             # Extract the geometry from the S1Product
@@ -72,6 +72,11 @@ if __name__ == "__main__":
             new_file_path = os.path.join(dir_path, f'{timestamp}_{polygon}.zip')
             # Replace all spaces in new_file_path with no space
             new_file_path = new_file_path.replace(' ', '')
+            new_file_path = new_file_path.replace("\\", '/')
+            new_file_path = new_file_path.replace("-", '_')
+            new_file_path = new_file_path.replace(":", '')
+            
+            
             
             # Rename the file
             os.rename(old_file_path, new_file_path)
