@@ -26,11 +26,11 @@ function DownloadPage() {
                 margin: "20px 0"
             }}/>
             <Form method={"post"} className={classes.form}>
-                <input name={"polygon"} type="hidden" value={data} required/>
                 {data && (
                     <div className={classes.inputWrapper}>
                         <span>Coordonnées de la séléction</span>
                         <DataDisplayer data={data} className={classes.dataDisplayer}/>
+                        <input name={"polygon"} type="hidden" value={JSON.stringify(data).replace(/\"/g, "")} required/>
                     </div>
                 )}
                 <div className={classes.formWrapper}>
@@ -73,7 +73,7 @@ export default DownloadPage;
 export async function action({request}) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
-    console.log(data)
+    console.log(JSON.stringify(data))
     if (data.polygon === "") {
         alert("Veuillez choisir une zone.")
     } else {

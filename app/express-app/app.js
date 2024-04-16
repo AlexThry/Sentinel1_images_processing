@@ -1,20 +1,26 @@
 const express = require('express');
 const { spawn } = require('child_process');
+const { exec } = require('child_process');
+const bodyParser = require('body-parser');
+
 
 const app = express();
 
+app.use(bodyParser.json());
+
+exec('source venv/bin/activate && pip install -r requirements.txt');
+
 app.use((req, res, next) => {
-    // Attach CORS headers
-    // Required when using a detached backend (that runs on a different domain)
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
+
 app.post("/download", (req, res) => {
     try {
-        console.log("prout")
-        const python = spawn('python', ['scripts/asf_api.py']);
+        console.log("downloading")
+        const python = spawn('./venv/bin/python3', ['scripts/asf_api.py', '--poligon', req.body.polygon, "--date_start", req.body.startDate, "--date_end", req.body.endDate, "--n_max", req.body.maxDownload, "--login", req.body.login, "--password", req.body.password]);
         python.stdout.on('data', (data) => {
             console.log(`stdout: ${data}`);
         });
