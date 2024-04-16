@@ -20,13 +20,19 @@ function DownloadPage() {
 
     return (
         <>
+            <AreaSelector inputStyle={{
+                height: "70vh",
+                width: "90%",
+                margin: "20px 0"
+            }}/>
             <Form method={"post"} className={classes.form}>
-                <AreaSelector inputStyle={{
-                    height: "70vh",
-                    width: "90%",
-                    margin: "20px 0"
-                }}/>
-                <DataDisplayer data={data}/>
+                <input name={"polygon"} type="hidden" value={data} required/>
+                {data && (
+                    <div className={classes.inputWrapper}>
+                        <span>Coordonnées de la séléction</span>
+                        <DataDisplayer data={data} className={classes.dataDisplayer}/>
+                    </div>
+                )}
                 <div className={classes.formWrapper}>
                     <div className={classes.inputWrapper}>
                         <span>Date de début</span>
@@ -40,6 +46,17 @@ function DownloadPage() {
                     <div className={classes.inputWrapper}>
                         <span>Nombre d'image max à télécharger</span>
                         <input name="maxDownload" type="number" required/>
+                    </div>
+                </div>
+
+                <div className={classes.formWrapper}>
+                    <div className={classes.inputWrapper}>
+                        <span>Login ASF</span>
+                        <input name="login" type="text" required/>
+                    </div>
+                    <div className={classes.inputWrapper}>
+                        <span>Password ASF</span>
+                        <input name="password" type="password" required/>
                     </div>
                 </div>
 
@@ -57,15 +74,19 @@ export async function action({request}) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     console.log(data)
+    if (data.polygon === "") {
+        alert("Veuillez choisir une zone.")
+    } else {
+        await fetch("http://localhost:8080/download", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': "application/json"
+            }
+        })
+            .then(() => alert("Download started"))
+            .catch(error => console.log(error))
+    }
 
-    await fetch("http://localhost:8080/download", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': "application/json"
-        }
-    })
-        .then(() => alert("Download started"))
-        .catch(error => console.log(error))
     return null;
 }

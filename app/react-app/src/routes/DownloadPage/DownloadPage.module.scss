@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.36);
+  width: 90%;
+  border-radius: 20px;
+  padding: 20px;
 }
 
 .formWrapper {
@@ -15,7 +19,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
 
+  span {
+    text-align: center;
+  }
 }
 
 input, button {
@@ -24,4 +32,8 @@ input, button {
   border-radius: 8px;
   border: 1px black solid;
 
+}
+
+.dataDisplayer {
+  margin-bottom: 10px;
 }
