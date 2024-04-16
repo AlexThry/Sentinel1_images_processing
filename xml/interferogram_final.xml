@@ -5,7 +5,7 @@
     <sources/>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
       <useAdvancedOptions>false</useAdvancedOptions>
-      <file>C:\Users\Carlos Andres Cortes\OneDrive\Polytech\Polytech4A\S8\PROJ831\test_xml\data\S1A_IW_SLC__1SDV_20240408T053545_20240408T053612_053338_0677A4_A453.zip</file>
+      <file>${inputFile1}</file>
       <copyMetadata>true</copyMetadata>
       <bandNames/>
       <pixelRegion>0,0,49701,13671</pixelRegion>
@@ -17,10 +17,10 @@
     <sources/>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
       <useAdvancedOptions>false</useAdvancedOptions>
-      <file>C:\Users\Carlos Andres Cortes\OneDrive\Polytech\Polytech4A\S8\PROJ831\test_xml\data\S1A_IW_SLC__1SDV_20240408T053545_20240408T053612_053338_0677A4_A453.zip</file>
+      <file>${inputFile2}</file>
       <copyMetadata>true</copyMetadata>
       <bandNames/>
-      <pixelRegion>0,0,49701,13671</pixelRegion>
+      <pixelRegion>0,0,49092,13671</pixelRegion>
       <maskNames/>
     </parameters>
   </node>
@@ -30,7 +30,7 @@
       <sourceProduct refid="TOPSAR-Split"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <orbitType>Sentinel Precise (Auto Download)</orbitType>
+      <orbitType>${orbitType}</orbitType>
       <polyDegree>3</polyDegree>
       <continueOnFail>false</continueOnFail>
     </parameters>
@@ -41,7 +41,7 @@
       <sourceProduct refid="TOPSAR-Split(2)"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <orbitType>Sentinel Precise (Auto Download)</orbitType>
+      <orbitType>${orbitType}</orbitType>
       <polyDegree>3</polyDegree>
       <continueOnFail>false</continueOnFail>
     </parameters>
@@ -53,11 +53,11 @@
       <sourceProduct.1 refid="Apply-Orbit-File(2)"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <demName>SRTM 1Sec HGT</demName>
-      <demResamplingMethod>BILINEAR_INTERPOLATION</demResamplingMethod>
+      <demName>${demName}</demName>
+      <demResamplingMethod>${DEMResamplingMethod}</demResamplingMethod>
       <externalDEMFile/>
       <externalDEMNoDataValue>0.0</externalDEMNoDataValue>
-      <resamplingType>BILINEAR_INTERPOLATION</resamplingType>
+      <resamplingType>${ResamplingType}</resamplingType>
       <maskOutAreaWithoutElevation>true</maskOutAreaWithoutElevation>
       <outputRangeAzimuthOffset>false</outputRangeAzimuthOffset>
       <outputDerampDemodPhase>false</outputDerampDemodPhase>
@@ -70,16 +70,16 @@
       <sourceProduct refid="Back-Geocoding"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <subtractFlatEarthPhase>true</subtractFlatEarthPhase>
+      <subtractFlatEarthPhase>${subtractFlatEarthPhase}</subtractFlatEarthPhase>
       <srpPolynomialDegree>5</srpPolynomialDegree>
       <srpNumberPoints>501</srpNumberPoints>
       <orbitDegree>3</orbitDegree>
       <includeCoherence>true</includeCoherence>
-      <cohWinAz>3</cohWinAz>
-      <cohWinRg>10</cohWinRg>
+      <cohWinAz>${cohWinAz}</cohWinAz>
+      <cohWinRg>${cohWinRg}</cohWinRg>
       <squarePixel>true</squarePixel>
-      <subtractTopographicPhase>true</subtractTopographicPhase>
-      <demName>SRTM 1Sec HGT</demName>
+      <subtractTopographicPhase>${subtractTopographicPhase}</subtractTopographicPhase>
+      <demName>${demName}</demName>
       <externalDEMFile/>
       <externalDEMNoDataValue>0.0</externalDEMNoDataValue>
       <externalDEMApplyEGM/>
@@ -111,9 +111,9 @@
       <createGammaBand>false</createGammaBand>
       <createBetaBand>false</createBetaBand>
       <selectedPolarisations>VV</selectedPolarisations>
-      <outputSigmaBand>true</outputSigmaBand>
-      <outputGammaBand>false</outputGammaBand>
-      <outputBetaBand>false</outputBetaBand>
+      <outputSigmaBand>${outputSigmaBand}</outputSigmaBand>
+      <outputGammaBand>${outputGammaBand}</outputGammaBand>
+      <outputBetaBand>${outputBetaBand}</outputBetaBand>
     </parameters>
   </node>
   <node id="Calibration(2)">
@@ -130,9 +130,9 @@
       <createGammaBand>false</createGammaBand>
       <createBetaBand>false</createBetaBand>
       <selectedPolarisations>VV</selectedPolarisations>
-      <outputSigmaBand>true</outputSigmaBand>
-      <outputGammaBand>false</outputGammaBand>
-      <outputBetaBand>false</outputBetaBand>
+      <outputSigmaBand>${outputSigmaBand}</outputSigmaBand>
+      <outputGammaBand>${outputGammaBand}</outputGammaBand>
+      <outputBetaBand>${outputBetaBand}</outputBetaBand>
     </parameters>
   </node>
   <node id="BandMerge">
@@ -153,7 +153,7 @@
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
       <alpha>1.0</alpha>
       <FFTSizeString>64</FFTSizeString>
-      <windowSizeString>3</windowSizeString>
+      <windowSizeString>${windowSizeString}</windowSizeString>
       <useCoherenceMask>false</useCoherenceMask>
       <coherenceThreshold>0.2</coherenceThreshold>
     </parameters>
@@ -175,7 +175,7 @@
       <sourceProduct refid="Calibration"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <subswath>IW1</subswath>
+      <subswath>${subswath}</subswath>
       <selectedPolarisations/>
       <firstBurstIndex>1</firstBurstIndex>
       <lastBurstIndex>9</lastBurstIndex>
@@ -188,21 +188,38 @@
       <sourceProduct refid="Calibration(2)"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <subswath>IW1</subswath>
+      <subswath>${subswath}</subswath>
       <selectedPolarisations/>
       <firstBurstIndex>1</firstBurstIndex>
       <lastBurstIndex>9</lastBurstIndex>
       <wktAoi/>
     </parameters>
   </node>
-  <node id="Write">
-    <operator>Write</operator>
+  <node id="Subset">
+    <operator>Subset</operator>
     <sources>
       <sourceProduct refid="BandMerge"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>C:\Users\Carlos Andres Cortes\OneDrive\Polytech\Polytech4A\S8\PROJ831\test_xml\data\subset\S1A_IW_SLC__1SDV_20240408T053545_20240408T053612_053338_0677A4_A453_Cal_Orb_Stack_Ifg_Deb_Flt.dim</file>
-      <formatName>BEAM-DIMAP</formatName>
+      <sourceBands></sourceBands>
+      <tiePointGrids/>
+      <region>0,0,0,0</region>
+      <referenceBand/>
+      <geoRegion>${polygon}</geoRegion>
+      <subSamplingX>1</subSamplingX>
+      <subSamplingY>1</subSamplingY>
+      <fullSwath>false</fullSwath>
+      <copyMetadata>true</copyMetadata>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Subset"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${outputFile}</file>
+      <formatName>${formatOutput}</formatName>
     </parameters>
   </node>
   <applicationData id="Presentation">
@@ -249,8 +266,11 @@
     <node id="TOPSAR-Split(2)">
       <displayPosition x="12.0" y="231.0"/>
     </node>
+    <node id="Subset">
+      <displayPosition x="784.0" y="242.0"/>
+    </node>
     <node id="Write">
-      <displayPosition x="814.0" y="241.0"/>
+      <displayPosition x="887.0" y="241.0"/>
     </node>
   </applicationData>
 </graph>
