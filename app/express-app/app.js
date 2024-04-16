@@ -8,7 +8,25 @@ const app = express();
 
 app.use(bodyParser.json());
 
-exec('source venv/bin/activate && pip install -r requirements.txt');
+
+exec('python3 -m venv venv', (error) => {
+    if (error) {
+        console.error(`Error creating virtual environment: ${error}`);
+        return;
+    }
+
+    console.log('Virtual environment created successfully.');
+
+    exec('source venv/bin/activate && pip install -r requirements.txt', (error) => {
+        if (error) {
+            console.error(`Error installing dependencies: ${error}`);
+            return;
+        }
+
+        console.log('Dependencies installed successfully.');
+    });
+})
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
