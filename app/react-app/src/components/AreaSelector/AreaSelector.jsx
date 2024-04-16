@@ -9,9 +9,11 @@ import Draw from 'ol/interaction/Draw.js';
 import {createBox} from 'ol/interaction/Draw';
 import WKT from 'ol/format/WKT';
 import classes from "./AreaSelector.module.scss"
+import {transform} from "ol/proj.js";
 
 function AreaSelector({inputStyle}) {
-    const mapElement = useRef(null); // reference to the div element to render map
+    const mapElement = useRef(null);
+    let selection;
 
     useEffect(() => {
         const source = new VectorSource();
@@ -45,10 +47,11 @@ function AreaSelector({inputStyle}) {
         const wktFormat = new WKT();
 
         draw.on('drawend', function(event) {
-            let geometry = event.feature.getGeometry();
-            geometry = geometry.transform('EPSG:3857', 'EPSG:4326');
-            const wktString = wktFormat.writeGeometry(geometry);
-            console.log(wktString);
+            let geometry = event.feature.getGeometry().clone();
+            let transformedGeometry = geometry.transform('EPSG:3857', 'EPSG:4326');
+            const wktString = wktFormat.writeGeometry(transformedGeometry);
+            selection = wktString;
+            console.log(selection)
         });
 
         map.addInteraction(draw);

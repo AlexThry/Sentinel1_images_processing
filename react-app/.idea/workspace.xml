@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="68892aee-4471-451a-8575-ee121c9d7e1c" name="Changes" comment="Adding web app">
+      <change beforePath="$PROJECT_DIR$/../app/.github/dependabot.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/.github/workflows/build.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/vite.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App/App.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AreaSelector/AreaSelector.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AreaSelector/AreaSelector.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainHeader/MainHeader.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainHeader/MainHeader.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/DownloadPage/DownloadPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/DownloadPage/DownloadPage.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/FrontPage/FrontPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/FrontPage/FrontPage.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/ProcessPage/ProcessPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/ProcessPage/ProcessPage.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/RootLayout/RootLayout.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/RootLayout/RootLayout.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.3.2/bin/php" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2f84qdhM68mYeq0ikJN1qCpBA3N" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.App.jsx.executor": "Run",
+    "Node.js.run dev.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/routes/RootLayout" />
+      <recent name="$PROJECT_DIR$/src/components" />
+      <recent name="$PROJECT_DIR$/src/components/App" />
+      <recent name="$PROJECT_DIR$/src/routes" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="run dev" type="NodeJSConfigurationType" path-to-js-file="node_modules/vite/bin/vite.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-php-predefined-ba97393d7c68-74080bdb84d3-com.jetbrains.php.sharedIndexes-PS-233.11799.232" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68892aee-4471-451a-8575-ee121c9d7e1c" name="Changes" comment="" />
+      <created>1713169563471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713169563471</updated>
+      <workItem from="1713169566082" duration="13396000" />
+    </task>
+    <task id="LOCAL-00001" summary="Adding web app">
+      <option name="closed" value="true" />
+      <created>1713184489035</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713184489035</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Adding web app" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding web app" />
+  </component>
+</project>
