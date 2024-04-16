@@ -1,7 +1,7 @@
 import asf_search as asf
 import argparse
 import traceback
-import json
+
 
 
 
@@ -27,15 +27,11 @@ if __name__ == "__main__":
         parser.add_argument('--poligon', type=str, help='Le poligon pour la recherche')
         parser.add_argument('--date_start', type=str, help='La date de début pour la recherche')
         parser.add_argument('--date_end', type=str, help='La date de fin pour la recherche')
-        parser.add_argument('--login', type=str, help='Login pour l\'authentification')
-        parser.add_argument('--password', type=str, help='Password pour l\'authentification')
+
 
         # Parser les arguments
         args = parser.parse_args()
-        
-        # Créer la session
-        session = asf.ASFSession().auth_with_creds(username=args.login, password=args.password)
-        
+                
         result = search_asf(args.poligon, args.date_start, args.date_end)
         print(result)
         
