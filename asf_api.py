@@ -1,6 +1,11 @@
+from operator import ne
+import os
+import re
 import asf_search as asf
 import argparse
 import traceback
+from shapely.geometry import shape
+import json
 
 
 
@@ -20,7 +25,8 @@ def search_asf(poligon, date_start, date_end):
 if __name__ == "__main__":    
     # Créer l'objet ArgumentParser
     parser = argparse.ArgumentParser(description='Recherche des images Sentinel-1 sur ASF.')
-
+    # Define the directory path
+    dir_path = "./Data/asf_set"
     try:
         # Ajouter les arguments
         parser.add_argument('--poligon', type=str, help='Le poligon pour la recherche')
@@ -37,6 +43,7 @@ if __name__ == "__main__":
         session = asf.ASFSession().auth_with_creds(username=args.login, password=args.password)
         
         result = search_asf(args.poligon, args.date_start, args.date_end)
+
         
         # download the images
         if len(result) == 0:
@@ -44,10 +51,31 @@ if __name__ == "__main__":
             exit(0)
         if len(result) <= args.n_max:
             result.download(path = "./Data/asf_set", session=session)
+            files_to_rename = result
         else:
             result[:args.n_max].download(path = "./Data/asf_set", session=session)
-        
+            files_to_rename = result[:args.n_max]
         print("Les images ont été téléchargées avec succès.")
+        
+        # Loop through all downloaded files
+        for file in result:
+            # parse json
+            json_str = json.loads(str(file))
+            # Extract the geometry from the S1Product
+            geometry = json_str['geometry'] # Replace with actual method
+            # Convert the geometry to a shapely polygon
+            polygon = shape(geometry)
+            timestamp = json_str["properties"]['processingDate']  # Replace with actual method
 
+            # Create old and new file paths
+            old_file_path = os.path.join(dir_path, json_str["properties"]["fileName"])
+            new_file_path = os.path.join(dir_path, f'{timestamp}_{polygon}.zip')
+            # Replace all spaces in new_file_path with no space
+            new_file_path = new_file_path.replace(' ', '')
+            
+            # Rename the file
+            os.rename(old_file_path, new_file_path)
+
+        print("Les images ont été téléchargées avec succès.")
     except Exception as e:
         traceback.print_exc()
