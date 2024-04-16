@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 
-exec('python3 -m venv venv', (error) => {
+exec('python -m venv venv', (error) => {
     if (error) {
         console.error(`Error creating virtual environment: ${error}`);
         return;
