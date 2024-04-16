@@ -4,20 +4,30 @@
     <operator>Read</operator>
     <sources/>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>${product1}</file>
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>C:\Users\Carlos Andres Cortes\OneDrive\Polytech\Polytech4A\S8\PROJ831\test_xml\data\S1A_IW_SLC__1SDV_20240408T053545_20240408T053612_053338_0677A4_A453.zip</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,49701,13671</pixelRegion>
+      <maskNames/>
     </parameters>
   </node>
   <node id="Read(2)">
     <operator>Read</operator>
     <sources/>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>${product2}</file>
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>C:\Users\Carlos Andres Cortes\OneDrive\Polytech\Polytech4A\S8\PROJ831\test_xml\data\S1A_IW_SLC__1SDV_20240408T053545_20240408T053612_053338_0677A4_A453.zip</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,49701,13671</pixelRegion>
+      <maskNames/>
     </parameters>
   </node>
   <node id="Apply-Orbit-File">
     <operator>Apply-Orbit-File</operator>
     <sources>
-      <sourceProduct refid="Calibration"/>
+      <sourceProduct refid="TOPSAR-Split"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
       <orbitType>Sentinel Precise (Auto Download)</orbitType>
@@ -28,7 +38,7 @@
   <node id="Apply-Orbit-File(2)">
     <operator>Apply-Orbit-File</operator>
     <sources>
-      <sourceProduct refid="Calibration(2)"/>
+      <sourceProduct refid="TOPSAR-Split(2)"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
       <orbitType>Sentinel Precise (Auto Download)</orbitType>
@@ -159,29 +169,55 @@
       <bandNamePattern>coh.*|i.*|q.*</bandNamePattern>
     </parameters>
   </node>
+  <node id="TOPSAR-Split">
+    <operator>TOPSAR-Split</operator>
+    <sources>
+      <sourceProduct refid="Calibration"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <subswath>IW1</subswath>
+      <selectedPolarisations/>
+      <firstBurstIndex>1</firstBurstIndex>
+      <lastBurstIndex>9</lastBurstIndex>
+      <wktAoi/>
+    </parameters>
+  </node>
+  <node id="TOPSAR-Split(2)">
+    <operator>TOPSAR-Split</operator>
+    <sources>
+      <sourceProduct refid="Calibration(2)"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <subswath>IW1</subswath>
+      <selectedPolarisations/>
+      <firstBurstIndex>1</firstBurstIndex>
+      <lastBurstIndex>9</lastBurstIndex>
+      <wktAoi/>
+    </parameters>
+  </node>
   <node id="Write">
     <operator>Write</operator>
     <sources>
       <sourceProduct refid="BandMerge"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>${outputFile}</file>
+      <file>C:\Users\Carlos Andres Cortes\OneDrive\Polytech\Polytech4A\S8\PROJ831\test_xml\data\subset\S1A_IW_SLC__1SDV_20240408T053545_20240408T053612_053338_0677A4_A453_Cal_Orb_Stack_Ifg_Deb_Flt.dim</file>
       <formatName>BEAM-DIMAP</formatName>
     </parameters>
   </node>
   <applicationData id="Presentation">
     <Description/>
     <node id="Read">
-      <displayPosition x="25.0" y="13.0"/>
+      <displayPosition x="20.0" y="-2.0"/>
     </node>
     <node id="Read(2)">
       <displayPosition x="26.0" y="302.0"/>
     </node>
     <node id="Apply-Orbit-File">
-      <displayPosition x="11.0" y="107.0"/>
+      <displayPosition x="10.0" y="107.0"/>
     </node>
     <node id="Apply-Orbit-File(2)">
-      <displayPosition x="9.0" y="190.0"/>
+      <displayPosition x="11.0" y="193.0"/>
     </node>
     <node id="Back-Geocoding">
       <displayPosition x="18.0" y="151.0"/>
@@ -193,10 +229,10 @@
       <displayPosition x="297.0" y="150.0"/>
     </node>
     <node id="Calibration">
-      <displayPosition x="24.0" y="76.0"/>
+      <displayPosition x="19.0" y="39.0"/>
     </node>
     <node id="Calibration(2)">
-      <displayPosition x="9.0" y="228.0"/>
+      <displayPosition x="13.0" y="268.0"/>
     </node>
     <node id="BandMerge">
       <displayPosition x="669.0" y="242.0"/>
@@ -206,6 +242,12 @@
     </node>
     <node id="BandSelect">
       <displayPosition x="661.0" y="156.0"/>
+    </node>
+    <node id="TOPSAR-Split">
+      <displayPosition x="14.0" y="74.0"/>
+    </node>
+    <node id="TOPSAR-Split(2)">
+      <displayPosition x="12.0" y="231.0"/>
     </node>
     <node id="Write">
       <displayPosition x="814.0" y="241.0"/>
