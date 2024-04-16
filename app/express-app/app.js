@@ -2,6 +2,8 @@ const express = require('express');
 const { spawn } = require('child_process');
 const { exec } = require('child_process');
 const bodyParser = require('body-parser');
+const os = require('os');
+
 
 
 const app = express();
@@ -17,7 +19,12 @@ exec('python -m venv venv', (error) => {
 
     console.log('Virtual environment created successfully.');
 
-    exec('source venv/bin/activate && pip install -r requirements.txt', (error) => {
+    let activateCommand = 'source venv/bin/activate && pip install -r requirements.txt';
+    if (os.platform() === 'win32') {
+        activateCommand = 'venv\\Scripts\\activate && pip install -r requirements.txt';
+    }
+
+    exec(activateCommand, (error) => {
         if (error) {
             console.error(`Error installing dependencies: ${error}`);
             return;
