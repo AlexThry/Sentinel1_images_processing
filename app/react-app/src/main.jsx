@@ -7,13 +7,15 @@ import RootLayout from "./routes/RootLayout/RootLayout.jsx";
 import FrontPage from "./routes/FrontPage/FrontPage.jsx";
 import DownloadPage from "./routes/DownloadPage/DownloadPage.jsx";
 import ProcessPage from "./routes/ProcessPage/ProcessPage.jsx";
+import {DataProvider} from "./components/DataProvider/DataProvider.jsx";
+import {action as downloadAction} from "./routes/DownloadPage/DownloadPage.jsx"
 
 
 const router = createBrowserRouter([
     {path: '/', element: <RootLayout/>, children: [
             {path: "/home", element: <FrontPage/>},
-            {path: "/download", element: <DownloadPage/>},
-            {path: "/process", element: <ProcessPage/>}
+            {path: "/download", element: <DataProvider children={<DownloadPage/>}/>, action: downloadAction},
+            {path: "/process", element: <DataProvider children={<ProcessPage/>}/>}
         ]}
 ])
 

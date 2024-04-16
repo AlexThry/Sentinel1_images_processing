@@ -1,7 +1,8 @@
 .nav {
   background-color: white;
   position: sticky;
-  top: 0;
+  top: 20px;
+  z-index: 1000;
   justify-content: space-between;
   height: 80px;
   padding: 20px;

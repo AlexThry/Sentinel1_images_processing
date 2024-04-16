@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
+import {DataContext} from "../DataProvider/DataProvider.jsx";
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import OSM from 'ol/source/OSM.js';
@@ -9,11 +10,11 @@ import Draw from 'ol/interaction/Draw.js';
 import {createBox} from 'ol/interaction/Draw';
 import WKT from 'ol/format/WKT';
 import classes from "./AreaSelector.module.scss"
-import {transform} from "ol/proj.js";
 
+// eslint-disable-next-line react/prop-types
 function AreaSelector({inputStyle}) {
     const mapElement = useRef(null);
-    let selection;
+    const { data, setData } = useContext(DataContext);
 
     useEffect(() => {
         const source = new VectorSource();
@@ -49,9 +50,11 @@ function AreaSelector({inputStyle}) {
         draw.on('drawend', function(event) {
             let geometry = event.feature.getGeometry().clone();
             let transformedGeometry = geometry.transform('EPSG:3857', 'EPSG:4326');
+            let coordinates = transformedGeometry.getCoordinates();
+            coordinates = coordinates.map(ring => ring.map(coord => [parseFloat(coord[0].toFixed(3)), parseFloat(coord[1].toFixed(3))]));
+            transformedGeometry.setCoordinates(coordinates);
             const wktString = wktFormat.writeGeometry(transformedGeometry);
-            selection = wktString;
-            console.log(selection)
+            setData(wktString);
         });
 
         map.addInteraction(draw);
