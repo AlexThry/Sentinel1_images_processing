@@ -21,7 +21,7 @@ exec('python -m venv venv', (error) => {
 
     let activateCommand = 'source venv/bin/activate && pip install -r requirements.txt';
     if (os.platform() === 'win32') {
-        activateCommand = 'venv\\Scripts\\activate && pip install -r requirements.txt';
+        activateCommand = 'venv\\Scripts\\activate.ps1 && pip install -r requirements.txt';
     }
 
     exec(activateCommand, (error) => {
@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 app.post("/download", (req, res) => {
     try {
         console.log("downloading")
-        const python = spawn('./venv/bin/python3', ['scripts/asf_api.py', '--poligon', req.body.polygon, "--date_start", req.body.startDate, "--date_end", req.body.endDate, "--n_max", req.body.maxDownload, "--login", req.body.login, "--password", req.body.password]);
+        const python = spawn('./venv/bin/python', ['scripts/asf_api.py', '--poligon', req.body.polygon, "--date_start", req.body.startDate, "--date_end", req.body.endDate, "--n_max", req.body.maxDownload, "--login", req.body.login, "--password", req.body.password]);
         python.stdout.on('data', (data) => {
             console.log(`stdout: ${data}`);
         });
