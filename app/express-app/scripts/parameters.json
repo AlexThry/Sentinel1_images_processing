@@ -1,0 +1,19 @@
+{
+    "inputFile1": "./data/data2/S1A_IW_SLC__1SDV_20240401T054407_20240401T054434_053236_0673A0_742F.zip",
+    "inputFile2": "./data/data2/S1A_IW_SLC__1SDV_20240413T054406_20240413T054433_053411_067A88_8905.zip",
+    "orbitType": "Sentinel Precise (Auto Download)",
+    "DEMResamplingMethod": "BILINEAR_INTERPOLATION",
+    "ResamplingType": "BILINEAR_INTERPOLATION",
+    "demName": "SRTM 1Sec HGT",
+    "subtractFlatEarthPhase": true,
+    "cohWinAz": 3,
+    "cohWinRg": 10,
+    "subtractTopographicPhase": true,
+    "outputSigmaBand": true,
+    "outputGammaBand": false,
+    "outputBetaBand": false,
+    "windowSizeString": 3,
+    "subswath": "IW1",
+    "polygon": "POLYGON ((7.47129487991333 45.903465270996094, 7.592817306518555 45.903465270996094, 7.592817306518555 45.80624771118164, 7.47129487991333 45.80624771118164, 7.47129487991333 45.903465270996094, 7.47129487991333 45.903465270996094))",
+    "formatOutput": "GeoTIFF"
+}
