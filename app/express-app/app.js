@@ -19,10 +19,10 @@ exec('python -m venv venv', (error) => {
 
     console.log('Virtual environment created successfully.');
 
-    let activateCommand = 'source venv/bin/activate && pip install -r requirements.txt';
+    
     if (os.platform() === 'win32') {
-        activateCommand = 'venv\\Scripts\\activate.ps1 && pip install -r requirements.txt';
-    }
+        activateCommand = 'venv\\Scripts\\python -m pip install -r requirements_win.txt ';
+    }else{let activateCommand = 'source venv/bin/activate && pip install -r requirements.txt';}
 
     exec(activateCommand, (error) => {
         if (error) {
@@ -39,13 +39,19 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    console.log("Back end is running")
     next();
 });
 
 app.post("/download", (req, res) => {
     try {
         console.log("downloading")
-        const python = spawn('./venv/bin/python', ['scripts/asf_api.py', '--poligon', req.body.polygon, "--date_start", req.body.startDate, "--date_end", req.body.endDate, "--n_max", req.body.maxDownload, "--login", req.body.login, "--password", req.body.password]);
+        let python;
+        if (os.platform() === 'win32') {
+            python = spawn('venv//Scripts//python', ['scripts/asf_api.py', '--poligon', req.body.polygon, "--date_start", req.body.startDate, "--date_end", req.body.endDate, "--n_max", req.body.maxDownload, "--login", req.body.login, "--password", req.body.password]);
+        }else{
+            python = spawn('./venv/bin/python', ['scripts/asf_api.py', '--poligon', req.body.polygon, "--date_start", req.body.startDate, "--date_end", req.body.endDate, "--n_max", req.body.maxDownload, "--login", req.body.login, "--password", req.body.password]);
+        }
         python.stdout.on('data', (data) => {
             console.log(`stdout: ${data}`);
         });

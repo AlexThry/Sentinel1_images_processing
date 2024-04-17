@@ -45,7 +45,7 @@ if __name__ == "__main__":
         if len(result) <= args.n_max:
             result.download(path = "./Data/asf_set", session=session)
         else:
-            result[:args.n_max].download(path = "./data", session=session)
+            result[:args.n_max].download(path = "./data/asf_set", session=session)
         
         print("Les images ont été téléchargées avec succès.")
 
