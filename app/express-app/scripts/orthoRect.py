@@ -5,8 +5,8 @@ import os
 
 if __name__ == "__main__":    
 
-    xmlGraph = './OrthorectGraph_var.xml'
-    outputPath = "./newSubset/orthorect/"
+    xmlGraph = '../xml/OrthorectGraph_final.xml'
+    outputPath = "../data/orthorectification/"
     snapExecutablePath = "gpt"
 
     # Créer l'objet ArgumentParser
