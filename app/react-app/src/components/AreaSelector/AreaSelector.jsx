@@ -9,10 +9,9 @@ import VectorLayer from 'ol/layer/Vector.js';
 import Draw from 'ol/interaction/Draw.js';
 import {createBox} from 'ol/interaction/Draw';
 import WKT from 'ol/format/WKT';
-import classes from "./AreaSelector.module.scss"
 
 // eslint-disable-next-line react/prop-types
-function AreaSelector({inputStyle}) {
+function AreaSelector({inputClasses}) {
     const mapElement = useRef(null);
     const { data, setData } = useContext(DataContext);
 
@@ -64,7 +63,7 @@ function AreaSelector({inputStyle}) {
         };
     }, []);
     return (
-        <div ref={mapElement} id="map" className={classes.map} style={inputStyle}></div>
+        <div ref={mapElement} id="map" className={inputClasses}></div>
     );
 }
 

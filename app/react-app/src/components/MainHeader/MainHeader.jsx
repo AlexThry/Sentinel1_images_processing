@@ -1,4 +1,3 @@
-import classes from "./MainHeader.module.scss"
 import {Link, useLocation} from "react-router-dom";
 
 function MainHeader(){
@@ -8,12 +7,14 @@ function MainHeader(){
 
     return (
         <>
-            <nav className={classes.nav}>
-                <div className={classes.buttons}>
-                    <Link to={"/home"} className={`${classes.button} ${classes.homeButton} ${currentPath === "/home" ? classes.active : ""}`}>HOME</Link>
-                    <Link to={"/download"} className={`${classes.button} ${currentPath === "/download" ? classes.active : ""}`}>Download</Link>
-                    <Link to={"/process"} className={`${classes.button} ${currentPath === "/process" ? classes.active : ""}`}>Process</Link>
-                    <Link to={"/view"} className={`${classes.button} ${currentPath === "/view" ? classes.active : ""}`}>View</Link>
+            <nav className={"navbar flex justify-between bg-white px-10"}>
+                <div className={"flex"}>
+                    <Link to={"/home"} className={"btn text-xl"}>HOME</Link>
+                </div>
+                <div className={"flew gap-4"}>
+                    <Link to={"/download"} className={"btn btn-ghost"}>Download</Link>
+                    <Link to={"/process"} className={"btn btn-ghost"}>Process</Link>
+                    <Link to={"/view"} className={"btn btn-ghost"}>View</Link>
                 </div>
             </nav>
         </>

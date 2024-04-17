@@ -2,10 +2,10 @@ import AreaSelector from "../../components/AreaSelector/AreaSelector.jsx";
 import {DataContext} from "../../components/DataProvider/DataProvider.jsx";
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import {useContext, useEffect, useState} from "react";
-import classes from "./DownloadPage.module.scss"
-import {Form} from "react-router-dom";
+import {Form, Outlet} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DataSelector from "../../components/DataSelector/DataSelector.jsx";
 
 
 function DownloadPage() {
@@ -20,49 +20,59 @@ function DownloadPage() {
 
     return (
         <>
-            <AreaSelector inputStyle={{
-                height: "70vh",
-                width: "90%",
-                margin: "20px 0"
-            }}/>
-            <Form method={"post"} className={classes.form}>
-                {data && (
-                    <div className={classes.inputWrapper}>
-                        <span>Coordonnées de la séléction</span>
-                        <DataDisplayer data={data} className={classes.dataDisplayer}/>
-                        <input name={"polygon"} type="hidden" value={JSON.stringify(data).replace(/\"/g, "")} required/>
-                    </div>
-                )}
-                <div className={classes.formWrapper}>
-                    <div className={classes.inputWrapper}>
-                        <span>Date de début</span>
-                        <DatePicker name={"startDate"} selected={startDate} onChange={date => setStartDate(date)} required/>
-                    </div>
+            <Outlet/>
+            <div className={"grid grid-cols-[30vw_1fr] h-[calc(100vh-4rem)] w-screen"}>
+                <div className={"w-full p-3"}>
+                    <h1 className={"text-2xl font-bold mb-4"}>Selection</h1>
 
-                    <div className={classes.inputWrapper}>
-                        <span>Date de fin</span>
-                        <DatePicker name={"endDate"} selected={endDate} onChange={date => setEndDate(date)} required/>
-                    </div>
-                    <div className={classes.inputWrapper}>
-                        <span>Nombre d'image max à télécharger</span>
-                        <input name="maxDownload" type="number" required/>
-                    </div>
+                    <Form method={"post"} className={""}>
+                        {data && (
+                            <DataDisplayer data={data} dataName={"Selection"} className={""}/>
+
+                        )}
+                        <div className={"flex flex-col gap-4"}>
+                            <div className={"flex flex-col relative"}>
+                                <span className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Date de début</span>
+                                <DatePicker className={"w-full input input-bordered w-full"} name={"startDate"}
+                                            selected={startDate} onChange={date => setStartDate(date)} required/>
+                            </div>
+
+                            <div className={"flex flex-col relative"}>
+                                <span className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Date de fin</span>
+                                <DatePicker className={"w-full input input-bordered w-full"} name={"endDate"}
+                                            selected={endDate} onChange={date => setEndDate(date)} required/>
+                            </div>
+                            <div className={"flex flex-col relative"}>
+                                <span className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Nombre d'image max</span>
+                                <input className={"input input-bordered w-full"} name="maxDownload" type="number"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <DataSelector data={"prout"}/>
+
+                        <div className="divider"></div>
+
+                        <div className={"flex flex-col gap-4"}>
+                            <h1 className={"text-2xl font-bold"}>Identifiants ASF</h1>
+                            <div className={"flex flex-col relative"}>
+                                <span className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Login ASF</span>
+                                <input className={"input input-bordered w-full"} name="login" type="text"/>
+                            </div>
+                            <div className={"flex flex-col relative"}>
+                                <span className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Password ASF</span>
+                                <input className={"input input-bordered w-full"} name="password" type="password"/>
+                            </div>
+                        </div>
+
+                        <button type="submit" className={"btn btn-outline mt-4 w-full"}>Valider et
+                            télécharger
+                        </button>
+
+                    </Form>
                 </div>
-
-                <div className={classes.formWrapper}>
-                    <div className={classes.inputWrapper}>
-                        <span>Login ASF</span>
-                        <input name="login" type="text" required/>
-                    </div>
-                    <div className={classes.inputWrapper}>
-                        <span>Password ASF</span>
-                        <input name="password" type="password" required/>
-                    </div>
-                </div>
-
-                <button type="submit">Valider et télécharger</button>
-
-            </Form>
+                <AreaSelector className={"w-full"} inputClasses={""}/>
+            </div>
 
         </>
     )

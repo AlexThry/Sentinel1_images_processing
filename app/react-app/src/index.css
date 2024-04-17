@@ -10,3 +10,11 @@
 #map > div > div.ol-overlaycontainer-stopevent {
     display: none;
 }
+
+.react-datepicker__tab-loop {
+    z-index: 100;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
