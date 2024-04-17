@@ -15,9 +15,7 @@ function FrontPage() {
 
     return (
         <>
-            <div>
-                <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown>
-            </div>
+            <Markdown className={"prose lg:prose-xl mx-10 mt-6 w-full"}>{markdown}</Markdown>
         </>
     )
 }

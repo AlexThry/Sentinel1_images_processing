@@ -1,4 +1,3 @@
-import classes from "./ProcessPage.module.scss";
 import AreaSelector from "../../components/AreaSelector/AreaSelector.jsx";
 import {DataContext, DataProvider} from "../../components/DataProvider/DataProvider.jsx";
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
@@ -16,12 +15,8 @@ function ProcessPage() {
 
     return (
         <>
-            <Form className={classes.form}>
-                <AreaSelector inputStyle={{
-                    height: "70vh",
-                    width: "90%",
-                    margin: "20px 0"
-                }}/>
+            <Form className={""}>
+                <AreaSelector inputClasses={"h-20"}/>
                 <DataDisplayer data={data}/>
             </Form>
         </>

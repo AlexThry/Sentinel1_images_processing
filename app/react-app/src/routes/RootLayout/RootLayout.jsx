@@ -4,9 +4,9 @@ import classes from "./RootLayout.module.scss";
 
 function RootLayout(){
     return (
-        <div className={classes.root}>
+        <div className={"h-screen"}>
             <MainHeader/>
-            <Outlet/>
+            <Outlet className={"h-full"}/>
         </div>
     )
 }
