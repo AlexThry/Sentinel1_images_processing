@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './components/App/App.jsx'
 import './index.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import RootLayout from "./routes/RootLayout/RootLayout.jsx";
@@ -21,7 +20,8 @@ const router = createBrowserRouter([
                 element: <DataProvider children={<DownloadPage/>}/>,
                 children: [
                     {path: "/download/:id", element: <DataDetails/>}
-                ]
+                ],
+                action: downloadAction
 
             },
             {path: "/process", element: <DataProvider children={<ProcessPage/>}/>},
