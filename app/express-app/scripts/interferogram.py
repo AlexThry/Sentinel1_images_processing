@@ -5,13 +5,14 @@ import os
 
 if __name__ == "__main__":    
 
-    xmlGraph = './interferogram_final.xml'
-    outputPath = "./newSubset/"
+    xmlGraph = '../xml/interferogram_final.xml'
+    outputPathTif = "../data/interferometric_image/tif/"
+    outputPathDim = "../data/interferometric_image/dim/"
     snapExecutablePath = "gpt"
     parametersPath = "./parameters.json"
 
     # Créer l'objet ArgumentParser
-    parser = argparse.ArgumentParser(description="Etude d'interferografie   avec snap.")
+    parser = argparse.ArgumentParser(description="Etude d'interferografie avec snap.")
 
     try:
         # Ajouter les arguments
@@ -20,7 +21,7 @@ if __name__ == "__main__":
 
         # Parser les arguments
         args = parser.parse_args()
-                        
+        data_dict = {}          
         try:
             # Open the JSON file in read mode
             with open(parametersPath, 'r') as json_file:
@@ -34,7 +35,8 @@ if __name__ == "__main__":
             print(f"Error: JSON decoding failed. {e.msg}")
 
 
-        data_dict["outputFile"] = outputPath+args.outputName
+        data_dict["outputFile1"] = outputPathTif + args.outputName + ".tif"
+        data_dict["outputFile2"] = outputPathDim + args.outputName + ".dim"
 
         paramLine = ""
         for k in data_dict.keys():
@@ -42,7 +44,7 @@ if __name__ == "__main__":
 
 
         finalCmd = f"{snapExecutablePath} {xmlGraph} {paramLine}"
-        os.system(f"{snapExecutablePath} {xmlGraph} {paramLine}")
+        os.system(finalCmd)
         
 
     except Exception as e:
