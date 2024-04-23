@@ -124,10 +124,45 @@ app.post("/download", (req, res) => {
 });
 
 app.post("/process", (req, res) => {
+    const data = JSON.stringify(req.body);
+
     try {
         console.log("process")
-        res.status(200).json("process");
-    } catch (error) {
+        fs.writeFile('scripts/parameters.json', data, (err) => {
+            if (err) {
+                console.error('Erreur lors de l\'écriture du fichier :', err);
+            } else {
+                console.log('Données écrites avec succès dans output.json');
+            }
+        });
+
+        let python;
+        if (os.platform() === 'win32') {
+            python = spawn('venv//Scripts//python', ['scripts/interferogram.py', "--outputName", "prout"]);
+        } else{
+            python = spawn('./venv/bin/python', ['scripts/interferogram.py', "--outputName", "prout"]);
+        }
+        let error = "";
+        python.stdout.on('data', (data) => {
+            const str_data = `${data}`
+            if (str_data.split(",")[0] == "error") {
+                error = str_data.split(",")[1]
+            }
+            console.log(`stdout: ${data}`);
+        });
+
+        python.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+        });
+
+        python.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+            if (code == 0) {
+                res.status(200).json("success")
+            } else {
+                res.status(200).json(error)
+            }
+        });    } catch (error) {
         console.error("erreur process", error);
         res.status(500).send("erreur process");
     }
@@ -152,6 +187,31 @@ app.post("/processed", (req, res) => {
         res.status(500).send("erreur processed");
     }
 })
+
+app.get("/parameters", (req, res) => {
+    fs.readFile("./scripts/keys_param.json", "utf8", (err, data) => {
+        if (err) {
+            console.error(`Error reading file from disk: ${err}`);
+            res.status(500).send('Error reading file');
+        } else {
+            const jsonData = JSON.parse(data);
+            res.status(200).json(jsonData);
+        }
+    })
+})
+
+app.get("/downloaded-images", (req, res) => {
+    fs.readdir("./data/asf_set", (err, files) => {
+        if (err) {
+            console.error(`Error reading file from disk: ${err}`);
+            res.status(500).send('Error reading file');
+        } else {
+            const zipFiles = files.filter(file => file.endsWith('.zip'));
+            res.status(200).json(zipFiles);
+        }
+    })
+})
+
 
 app.listen(8080);
 

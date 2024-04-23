@@ -1,11 +1,65 @@
 import Modal from "../Modal/Modal.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {DataContext} from "../DataProvider/DataProvider.jsx";
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import Polygon from 'ol/geom/Polygon';
+import Feature from 'ol/Feature';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+import {fromLonLat} from 'ol/proj';
+
 
 function DataDetails() {
     const {images} = useContext(DataContext);
     let { id } = useParams();
+    const mapElement = useRef(null);
+
+    useEffect(() => {
+        let coords = images.features[id].geometry.coordinates["0"]
+
+        let map = new Map({
+            target: 'map',
+            layers: [
+                new TileLayer({
+                    source: new OSM()
+                })
+            ],
+            view: new View({
+                zoom: 13
+            }),
+        });
+
+        let polygonCoords = [
+            fromLonLat(coords[0]),
+            fromLonLat(coords[1]),
+            fromLonLat(coords[2]),
+            fromLonLat(coords[3])
+        ];
+
+        let polygon = new Polygon([polygonCoords]);
+
+        let feature = new Feature(polygon);
+        let vectorSource = new VectorSource({
+            features: [feature]
+        });
+        var vectorLayer = new VectorLayer({
+            source: vectorSource
+        });
+        map.addLayer(vectorLayer);
+        map.getView().fit(polygon.getExtent());
+        map.getInteractions().forEach(x => x.setActive(false));
+
+        return () => {
+            map.setTarget(undefined);
+        }
+    }, []);
+
+
+
 
     return (
         <>
@@ -14,17 +68,21 @@ function DataDetails() {
                     <Link to={".."} className={"absolute top-[1.125rem] left-[1.25rem] h-4 w-4 bg-red-600 rounded-full z-30 hover:bg-red-700"}>
 
                     </Link>
-                    <div className={"py-14 px-10 max-h-full overflow-y-scroll"}>
+                    <div className={"px-10 max-h-full overflow-y-scroll"}>
                         <div>
+                            <div>
+                                <h1 className={"font-bold"}>Aperçu</h1>
+                                <div id="map" ref={mapElement} className={"h-[200px] my-4 rounded-lg overflow-hidden shadow"}></div>
+                            </div>
                             <div>
                                 <h1 className={"font-bold"}>Coordonnées</h1>
                                 <table className={"table w-full"}>
                                     <thead>
-                                        <tr>
-                                            <td></td>
-                                            <td className={"text-center"}>Longitude</td>
-                                            <td className={"text-center"}>Latitude</td>
-                                        </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td className={"text-center"}>Longitude</td>
+                                        <td className={"text-center"}>Latitude</td>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                     {images.features[id].geometry.coordinates["0"].slice(0, -1).map((coordinate, index) => (

@@ -2,11 +2,11 @@ import AreaSelector from "../../components/AreaSelector/AreaSelector.jsx";
 import {DataContext} from "../../components/DataProvider/DataProvider.jsx";
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import {useContext, useEffect, useState} from "react";
-import {Form, Outlet} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DownloadSelector from "../../components/DownloadSelector/DownloadSelector.jsx";
 import { Splitter, SplitterPanel } from "primereact/splitter";
+import {Outlet} from "react-router-dom";
 
 
 
@@ -70,8 +70,8 @@ function DownloadPage() {
         <>
             <Outlet/>
             <Splitter className={"h-[calc(100vh-4rem)]"}>
-                <SplitterPanel size={30} minSize={30}>
-                    <div className={"w-full p-3 overflow-y-scroll"}>
+                <SplitterPanel size={30} minSize={30} className={"overflow-y-scroll"}>
+                    <div className={"w-full p-3"}>
                         <h1 className={"text-2xl font-bold mb-4"}>Selection</h1>
 
                         <div>
@@ -82,13 +82,13 @@ function DownloadPage() {
                             <div className={"flex flex-col gap-4"}>
                                 <div className={"flex flex-col relative"}>
                                     <span className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Date de début</span>
-                                    <DatePicker className={"w-full input input-bordered w-full"}
+                                    <DatePicker className={"input input-bordered w-full"}
                                                 selected={startDate} onChange={date => setStartDate(date)} required/>
                                 </div>
 
                                 <div className={"flex flex-col relative"}>
                                     <span className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Date de fin</span>
-                                    <DatePicker className={"w-full input input-bordered w-full"}
+                                    <DatePicker className={"input input-bordered w-full"}
                                                 selected={endDate} onChange={date => setEndDate(date)} required/>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@ export async function download(body) {
     console.log(newData)
 
 
-    let message = await fetch("http://localhost:8080/download", {
+    return await fetch("http://localhost:8080/download", {
         method: "POST",
         body: JSON.stringify(newData),
         headers: {
@@ -202,8 +202,4 @@ export async function download(body) {
             return data
         })
         .catch(error => console.log(error))
-
-
-
-    return message;
 }
