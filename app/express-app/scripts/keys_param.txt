@@ -1,0 +1,39 @@
+parameters = {
+    "inputFile1": "// String",
+    "inputFile2": "// String",
+    "orbitType": [
+        "Sentinel Precise (Auto Download)",
+        "Sentinel Restituted (Auto Download)",
+        "DORIS Precise VOR (ENVISAT) (Auto Download)"
+    ],
+    "DEMResamplingMethod": [
+        "BILINEAR_INTERPOLATION",
+        "NEAREST_NEIGHBOUR",
+        "CUBIC_CONVOLUTION",
+        "BISINC_5_POINT_INTERPOLATION"
+    ],
+    "ResamplingType": [
+        "BILINEAR_INTERPOLATION",
+        "NEAREST_NEIGHBOUR",
+        "CUBIC_CONVOLUTION",
+        "BISINC_5_POINT_INTERPOLATION"
+    ],
+    "demName": [
+        "SRTM 1Sec HGT",
+        "SRTM 3Sec",
+        "CDEM",
+        "Copernicus 30m Global DEM"
+    ],
+    "subtractFlatEarthPhase": ["true", "false"],
+    "cohWinAz": , //integer
+    "cohWinRg": ,  //integer
+    "subtractTopographicPhase": ["true", "false"],
+    "outputSigmaBand": ["true", "false"],
+    "outputGammaBand": ["true", "false"],
+    "outputBetaBand": ["true", "false"],
+    "windowSizeString": ,//integer
+    "subswath": ["IW1", "IW2", "IW3"],
+    "polygon": "POLYGON ((9.775064468383789 46.38516616821289, 9.9105863571167 46.38516616821289, 9.9105863571167 46.26900100708008, 9.775064468383789 46.26900100708008, 9.775064468383789 46.38516616821289, 9.775064468383789 46.38516616821289))",
+    "outputFile": "// String",
+    "formatOutput": ["BEAM-DIMAP", "GeoTIFF"]
+}
