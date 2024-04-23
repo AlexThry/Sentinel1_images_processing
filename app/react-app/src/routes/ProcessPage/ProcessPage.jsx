@@ -3,23 +3,32 @@ import {DataContext, DataProvider} from "../../components/DataProvider/DataProvi
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import {useContext, useEffect} from "react";
 import {Form} from "react-router-dom";
+import {Splitter, SplitterPanel} from "primereact/splitter";
+import DownloadSelector from "../../components/DownloadSelector/DownloadSelector.jsx";
 
 
 function ProcessPage() {
-    const {data} = useContext(DataContext)
+    const {processPolygon, setProcessPolygon} = useContext(DataContext)
 
 
     useEffect(() => {
-        console.log(data);
-    }, [data]);
+        console.log(processPolygon);
+    }, [processPolygon]);
 
     return (
         <>
-            <Form className={""}>
-                <AreaSelector inputClasses={"h-20"}/>
-                <DataDisplayer data={data}/>
-            </Form>
-        </>
+            <Splitter className={"h-[calc(100vh-4rem)]"}>
+                <SplitterPanel size={30} minSize={30}>
+                    <div>
+
+                    </div>
+                </SplitterPanel>
+                <SplitterPanel size={70} minSize={60}>
+                    <AreaSelector inputClasses={"w-full h-full"} dataSetter={setProcessPolygon}></AreaSelector>
+                </SplitterPanel>
+            </Splitter>
+
+            </>
     )
 }
 

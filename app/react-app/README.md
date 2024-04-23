@@ -1,8 +1,20 @@
-# React + Vite
+# Comment utiliser cette application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cette app est divisée en 3 parties: 
+    
+- Téléchargement
+- Traitement
+- Visualisation
 
-Currently, two official plugins are available:
+## Téléchargement
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Cette section simplifie le téléchargement d'images en permettant un selection simple des images souhaitées.
+Il suffit de faire sa séléction sur la carte et de choisir les dates, puis de choisir les images à télécharger.
+Pour chaque image, on peut visualiser toutes les informations qui lui sont liées en cliquant sur "voir plus ->".
+
+Pour télécharger les images, il faut posséder un compte ASF et rentrer ses identifiants.
+
+## Traitement
+
+Dans cette partie, on peut voir quelles images ont étées téléchargées et on peut effectuer un traitement sur ces images.
+Le traitement consiste pour l'instant seulement à un traitement des phases, mais pourrait étofé dans le futur

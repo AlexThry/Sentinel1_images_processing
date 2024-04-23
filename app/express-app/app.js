@@ -94,7 +94,12 @@ app.post("/download", (req, res) => {
         }else{
             python = spawn('./venv/bin/python', ['scripts/download.py', "--login", req.body.login, "--password", req.body.password, "--selected", `${req.body.selected}`]);
         }
+        let error = "";
         python.stdout.on('data', (data) => {
+            const str_data = `${data}`
+            if (str_data.split(",")[0] == "error") {
+                error = str_data.split(",")[1]
+            }
             console.log(`stdout: ${data}`);
         });
 
@@ -107,7 +112,7 @@ app.post("/download", (req, res) => {
             if (code == 0) {
                 res.status(200).json("success")
             } else {
-                res.status(200).json("an error occured")
+                res.status(200).json(error)
             }
         });
 

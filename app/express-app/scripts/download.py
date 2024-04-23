@@ -3,8 +3,7 @@ import argparse
 import os
 import json
 from shapely.geometry import shape
-
-
+import sys
 
 
 if __name__ == "__main__":
@@ -18,7 +17,7 @@ if __name__ == "__main__":
      # Parser les arguments
     args = parser.parse_args()
 
-        # Read the JSON file
+    # Read the JSON file
     with open("./data/search_data_output/output.json", 'r') as f:
         images = dict(json.load(f))
 
@@ -35,17 +34,26 @@ if __name__ == "__main__":
     dir_path = "./data/asf_set"
 
     # Créer la session
-    session = asf.ASFSession().auth_with_creds(username=args.login, password=args.password)
+    try:
+        session = asf.ASFSession().auth_with_creds(username=args.login, password=args.password)
+    except:
+        print("error,Erreur lors de la connexion")
+        sys.exit(1)
+
     image_urls = []
     for image in image_list["features"]:
         # Extract url
         image_url = image["properties"]["url"]
         image_urls.append(image_url)
 
+
     print(image_urls)
 
-
-    asf.download_urls(urls=image_urls, session=session, path = dir_path)
+    try:
+        asf.download_urls(urls=image_urls, session=session, path = dir_path)
+    except:
+        print("error,Erreur lors du téléchargement")
+        sys.exit(1)
 
     # Extract the geometry from the S1Product
     geometry = image['geometry'] # Replace with actual method

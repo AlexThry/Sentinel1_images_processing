@@ -11,10 +11,8 @@ import {createBox} from 'ol/interaction/Draw';
 import WKT from 'ol/format/WKT';
 
 // eslint-disable-next-line react/prop-types
-function AreaSelector({inputClasses}) {
+function AreaSelector({inputClasses, dataSetter}) {
     const mapElement = useRef(null);
-    const { data, setData } = useContext(DataContext);
-
     useEffect(() => {
         const source = new VectorSource();
         const vector = new VectorLayer({
@@ -53,7 +51,7 @@ function AreaSelector({inputClasses}) {
             coordinates = coordinates.map(ring => ring.map(coord => [parseFloat(coord[0].toFixed(3)), parseFloat(coord[1].toFixed(3))]));
             transformedGeometry.setCoordinates(coordinates);
             const wktString = wktFormat.writeGeometry(transformedGeometry);
-            setData(wktString);
+            dataSetter(wktString);
         });
 
         map.addInteraction(draw);

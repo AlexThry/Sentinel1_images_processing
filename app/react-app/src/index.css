@@ -5,6 +5,12 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Inter";
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 #map > div > div.ol-overlaycontainer-stopevent {
@@ -14,6 +20,17 @@
 .react-datepicker__tab-loop {
     z-index: 100;
 }
+
+.p-splitter-gutter {
+    background-color: lightgray;
+}
+
+.p-splitter-gutter-handle {
+    background-color: darkgray;
+    border-radius: 10000px;
+}
+
+
 
 @tailwind base;
 @tailwind components;

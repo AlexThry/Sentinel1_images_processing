@@ -10,14 +10,11 @@ function DataDetails() {
     return (
         <>
             <Modal>
-                <div className={"h-[80vh] w-[60vw] bg-white rounded-2xl shadow-xl relative overflow-hidden"}>
-                    <Link to={".."} className={"absolute top-4 left-4 z-30"}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                             stroke="currentColor" className="w-10 h-10">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/>
-                        </svg>
+                <div className={"h-[80vh] w-[60vw] mockup-window border bg-white rounded-2xl shadow-xl relative overflow-hidden"}>
+                    <Link to={".."} className={"absolute top-[1.125rem] left-[1.25rem] h-4 w-4 bg-red-600 rounded-full z-30 hover:bg-red-700"}>
+
                     </Link>
-                    <div className={"pt-14 px-10 max-h-full overflow-y-scroll"}>
+                    <div className={"py-14 px-10 max-h-full overflow-y-scroll"}>
                         <div>
                             <div>
                                 <h1 className={"font-bold"}>Coordonnées</h1>
