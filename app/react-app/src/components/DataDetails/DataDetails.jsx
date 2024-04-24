@@ -65,7 +65,7 @@ function DataDetails() {
         <>
             <Modal>
                 <div className={"h-[80vh] w-[60vw] mockup-window border bg-white rounded-2xl shadow-xl relative overflow-hidden"}>
-                    <Link to={".."} className={"absolute top-[1.125rem] left-[1.25rem] h-4 w-4 bg-red-600 rounded-full z-30 hover:bg-red-700"}>
+                    <Link to={".."} className={"absolute top-5 left-[1.4rem] h-3 w-3 bg-red-600 rounded-full z-30 hover:bg-red-700"}>
 
                     </Link>
                     <div className={"px-10 max-h-full overflow-y-scroll"}>
