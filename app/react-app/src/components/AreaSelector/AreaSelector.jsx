@@ -11,9 +11,11 @@ import {createBox} from 'ol/interaction/Draw';
 import WKT from 'ol/format/WKT';
 
 // eslint-disable-next-line react/prop-types
-function AreaSelector({inputClasses, dataSetter}) {
+function AreaSelector({inputClasses, data, dataSetter}) {
     const mapElement = useRef(null);
     useEffect(() => {
+
+
         const source = new VectorSource();
         const vector = new VectorLayer({
             source: source,

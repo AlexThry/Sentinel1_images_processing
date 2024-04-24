@@ -49,6 +49,7 @@ if __name__ == "__main__":
 
 
         finalCmd = f"{snapExecutablePath} {xmlGraph} {paramLine}"
+        print("final command : \n ------------------ \n" + finalCmd)
         os.system(finalCmd)
         
 

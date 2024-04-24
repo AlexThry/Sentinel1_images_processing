@@ -18,8 +18,8 @@ function ProcessPage() {
     const [imagesNames, setImagesNames] = useState(null)
     const [response, setResponse] = useState("")
     const [inputParameters, setInputParameters] = useState({
-        "inputFile1": "2024-04-13T054406Z_POLYGON_((7.630837_44.433403,_8.084801_46.050266,_4.76493_46.451225,_4.407434_44.83395,_7.630837_44.433403)).zip",
-        "inputFile2": "2024-04-13T054406Z_POLYGON_((7.630837_44.433403,_8.084801_46.050266,_4.76493_46.451225,_4.407434_44.83395,_7.630837_44.433403)).zip",
+        "inputFile1": "S1A_IW_SLC__1SDV_20240413T054406_20240413T054433_053411_067A88_8905.SAFE",
+        "inputFile2": "S1A_IW_SLC__1SDV_20240401T054407_20240401T054434_053236_0673A0_742F.SAFE",
         "DEMResamplingMethod": "BILINEAR_INTERPOLATION",
         "orbitType": "DORIS Precise VOR (ENVISAT) (Auto Download)",
         "formatOutput": "GeoTIFF",
@@ -28,7 +28,10 @@ function ProcessPage() {
         "cohWinRg": "10",
         "outputBetaBand": "false",
         "outputGammaBand": "false",
-        "polygon": ""
+        "polygon": "",
+        "subswath": "IW1",
+        "windowSizeString": "3",
+        "demName": "SRTM 1Sec HGT"
     })
 
     const handleInputChange = (event) => {
@@ -104,17 +107,24 @@ function ProcessPage() {
                                 </div>
 
                                 <div className={"flex justify-center flex-wrap"}>
-                                    <div className={"flex flex-col relative m-4"}>
+                                    <div className={"flex flex-col relative m-2"}>
                                         <span
                                             className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>cohWinAz</span>
                                         <input type="number" defaultValue={inputParameters["cohWinAz"]} name="cohWinAz" id=""
                                                className={"input input-bordered w-24"} onChange={handleInputChange}/>
                                     </div>
 
-                                    <div className={"flex flex-col relative m-4"}>
+                                    <div className={"flex flex-col relative m-2"}>
                                         <span
                                             className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>cohWinRg</span>
                                         <input type="number" defaultValue={inputParameters["cohWinRg"]} name="cohWinRg" id=""
+                                               className={"input input-bordered w-24"} onChange={handleInputChange}/>
+                                    </div>
+
+                                    <div className={"flex flex-col relative m-2"}>
+                                        <span
+                                            className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>windowSize</span>
+                                        <input type="number" defaultValue={inputParameters["windowSizeString"]} name="windowSizeString" id=""
                                                className={"input input-bordered w-24"} onChange={handleInputChange}/>
                                     </div>
                                 </div>
@@ -215,6 +225,30 @@ function ProcessPage() {
                                     </select>
                                 </div>
 
+                                <div className={"flex flex-col relative my-4"}>
+                                    <span
+                                        className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>subswath</span>
+                                    <select name="subswath" id="" defaultValue={inputParameters["subswath"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
+                                        {
+                                            parameters["subswath"].map((value, index) => {
+                                                return <option key={index} value={value}>{value}</option>
+                                            })
+                                        }
+                                    </select>
+                                </div>
+
+                                <div className={"flex flex-col relative my-4"}>
+                                    <span
+                                        className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>demName</span>
+                                    <select name="demName" id="" defaultValue={inputParameters["demName"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
+                                        {
+                                            parameters["demName"].map((value, index) => {
+                                                return <option key={index} value={value}>{value}</option>
+                                            })
+                                        }
+                                    </select>
+                                </div>
+
                                 <button onClick={validate} className={`btn btn-outline mt-4 w-full`}>Valider</button>
                             </div>
                         )}
@@ -223,7 +257,7 @@ function ProcessPage() {
                     </div>
                 </SplitterPanel>
                 <SplitterPanel size={70} minSize={60}>
-                    <AreaSelector inputClasses={"w-full h-full"} className={"w-full h-full"} dataSetter={setProcessPolygon}></AreaSelector>
+                    <AreaSelector inputClasses={"w-full h-full"} className={"w-full h-full"} data={processPolygon} dataSetter={setProcessPolygon}></AreaSelector>
                 </SplitterPanel>
             </Splitter>
 

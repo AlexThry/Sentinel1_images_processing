@@ -140,7 +140,7 @@ function DownloadPage() {
                     </div>
                 </SplitterPanel>
                 <SplitterPanel size={70} minSize={60}>
-                    <AreaSelector className={"w-full h-full"} inputClasses={"w-full h-full"} dataSetter={setDownloadPolygon}/>
+                    <AreaSelector className={"w-full h-full"} inputClasses={"w-full h-full"} data={downloadPolygon} dataSetter={setDownloadPolygon}/>
                 </SplitterPanel>
             </Splitter>
         </>

@@ -1,3 +1,5 @@
-data
-scripts
-xml
+/data/*
+
+/venv/*
+/scripts/parameters.json
+/xml/*

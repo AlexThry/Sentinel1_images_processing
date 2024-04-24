@@ -74,8 +74,6 @@ app.post("/search", (req, res) => {
             } else {
                 const jsonData = JSON.parse(data);
 
-                console.log(jsonData);
-
                 res.status(200).json(jsonData);
             }
         });
