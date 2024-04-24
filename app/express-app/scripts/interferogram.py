@@ -3,12 +3,15 @@ import traceback
 import json
 import os
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
+
+    with open("scripts/gpt_path.txt") as f:
+        snapExecutablePath = f.read()
+
 
     xmlGraph = 'xml/interferogram_final.xml'
     outputPathTif = "data/interferometric_image/tif/"
     outputPathDim = "data/interferometric_image/dim/"
-    snapExecutablePath = "/Applications/snap/bin/gpt"
     parametersPath = "scripts/parameters.json"
     rawImagesLocation = "data/asf_set/"
 
@@ -51,7 +54,7 @@ if __name__ == "__main__":
         finalCmd = f"{snapExecutablePath} {xmlGraph} {paramLine}"
         print("final command : \n ------------------ \n" + finalCmd)
         os.system(finalCmd)
-        
+
 
     except Exception as e:
         traceback.print_exc()

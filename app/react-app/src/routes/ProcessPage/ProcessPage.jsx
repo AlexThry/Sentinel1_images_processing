@@ -18,8 +18,8 @@ function ProcessPage() {
     const [imagesNames, setImagesNames] = useState(null)
     const [response, setResponse] = useState("")
     const [inputParameters, setInputParameters] = useState({
-        "inputFile1": "S1A_IW_SLC__1SDV_20240413T054406_20240413T054433_053411_067A88_8905.SAFE",
-        "inputFile2": "S1A_IW_SLC__1SDV_20240401T054407_20240401T054434_053236_0673A0_742F.SAFE",
+        "inputFile1": "S1A_IW_SLC__1SDV_20240320T054407_20240320T054434_053061_066CFD_B77E.zip",
+        "inputFile2": "S1A_IW_SLC__1SDV_20240401T054407_20240401T054434_053236_0673A0_742F.zip",
         "DEMResamplingMethod": "BILINEAR_INTERPOLATION",
         "orbitType": "DORIS Precise VOR (ENVISAT) (Auto Download)",
         "formatOutput": "GeoTIFF",
