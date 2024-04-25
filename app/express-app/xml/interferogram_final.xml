@@ -201,10 +201,6 @@
       <sourceProduct refid="BandMerge"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <sourceBands></sourceBands>
-      <tiePointGrids/>
-      <region>0,0,0,0</region>
-      <referenceBand/>
       <geoRegion>${polygon}</geoRegion>
       <subSamplingX>1</subSamplingX>
       <subSamplingY>1</subSamplingY>
