@@ -1,25 +1,28 @@
 import AreaSelector from "../../components/AreaSelector/AreaSelector.jsx";
-import {DataContext, DataProvider} from "../../components/DataProvider/DataProvider.jsx";
 import {useContext, useEffect, useState} from "react";
-import {Form} from "react-router-dom";
+import {Form, Outlet} from "react-router-dom";
 import {Splitter, SplitterPanel} from "primereact/splitter";
 import DownloadSelector from "../../components/DownloadSelector/DownloadSelector.jsx";
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import DatePicker from "react-datepicker";
+import ProcessSelector from "../../components/ProcessSelector/ProcessSelector.jsx";
+import {ProcessDataContext} from "../../components/ProcessDataProvider/ProcessDataProvider.jsx";
 
 
 function ProcessPage() {
-    const {processPolygon, setProcessPolygon} = useContext(DataContext)
+    const {processPolygon, setProcessPolygon, previewPolygon } = useContext(ProcessDataContext)
 
     const [parametersLoaded, setParametersLoaded] = useState(false)
     const [imagesNamesLoaded, setImagesNamesLoaded] = useState(false)
 
+    const [imagePack, setImagePack] = useState("")
     const [parameters, setParameters] = useState(null)
     const [imagesNames, setImagesNames] = useState(null)
     const [response, setResponse] = useState("")
     const [inputParameters, setInputParameters] = useState({
         "inputFile1": "S1A_IW_SLC__1SDV_20240320T054407_20240320T054434_053061_066CFD_B77E.zip",
         "inputFile2": "S1A_IW_SLC__1SDV_20240401T054407_20240401T054434_053236_0673A0_742F.zip",
+        "folder": "",
         "DEMResamplingMethod": "BILINEAR_INTERPOLATION",
         "orbitType": "DORIS Precise VOR (ENVISAT) (Auto Download)",
         "ResamplingType": "BILINEAR_INTERPOLATION",
@@ -58,10 +61,19 @@ function ProcessPage() {
         }))
     }, [processPolygon])
 
+    useEffect(() => {
+        setInputParameters(prevState => ({
+            ...prevState,
+            ["folder"]: imagePack
+        }))
+        console.log(inputParameters)
+    }, [imagePack])
+
     return (
         <>
+            <Outlet/>
             <Splitter className={"h-[calc(100vh-4rem)]"}>
-                <SplitterPanel size={30} minSize={30} className={"overflow-y-scroll"}>
+                <SplitterPanel size={35} minSize={35} className={"overflow-y-scroll"}>
                     <div className={"w-full p-3"}>
                         <div className={"overflow-y-scroll"}>
 
@@ -73,13 +85,15 @@ function ProcessPage() {
                             </div>
                     )}
 
+
+                        <ProcessSelector className={"overflow-x-auto max-h-80 overflow-y-scroll pb-4"} setImagePack={setImagePack}/>
+
+
                         <h1 className={"text-2xl font-bold mb-4"}>Choix des paramètres</h1>
 
                         {parametersLoaded && (
                             <div>
-                                {imagesNamesLoaded && (
-                                    <div></div>
-                                )}
+
 
                                 <div className={"flex flex-col relative my-4"}>
                                     <span
@@ -243,8 +257,8 @@ function ProcessPage() {
 
                     </div>
                 </SplitterPanel>
-                <SplitterPanel size={70} minSize={60}>
-                    <AreaSelector inputClasses={"w-full h-full"} className={"w-full h-full"} data={processPolygon} dataSetter={setProcessPolygon}></AreaSelector>
+                <SplitterPanel size={65} minSize={55}>
+                    <AreaSelector inputClasses={"w-full h-full"} className={"w-full h-full"} data={processPolygon} dataSetter={setProcessPolygon} inputPolygon={previewPolygon}></AreaSelector>
                 </SplitterPanel>
             </Splitter>
 

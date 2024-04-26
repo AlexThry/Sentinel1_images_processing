@@ -1,7 +1,7 @@
 import Modal from "../Modal/Modal.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useContext, useEffect, useRef, useState} from "react";
-import {DataContext} from "../DataProvider/DataProvider.jsx";
+import {DownloadDataContext} from "../DowloadDataProvider/DowloadDataProvider.jsx";
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -13,8 +13,8 @@ import VectorLayer from 'ol/layer/Vector';
 import {fromLonLat} from 'ol/proj';
 
 
-function DataDetails() {
-    const {images} = useContext(DataContext);
+function DownloadDetails() {
+    const {images} = useContext(DownloadDataContext);
     let { id } = useParams();
     const mapElement = useRef(null);
 
@@ -126,4 +126,4 @@ function DataDetails() {
     )
 }
 
-export default DataDetails;
+export default DownloadDetails;

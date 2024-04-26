@@ -1,5 +1,5 @@
 import AreaSelector from "../../components/AreaSelector/AreaSelector.jsx";
-import {DataContext} from "../../components/DataProvider/DataProvider.jsx";
+import {DownloadDataContext} from "../../components/DowloadDataProvider/DowloadDataProvider.jsx";
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import {useContext, useEffect, useState} from "react";
 import DatePicker from "react-datepicker";
@@ -12,7 +12,7 @@ import {Outlet} from "react-router-dom";
 
 
 function DownloadPage() {
-    const {downloadPolygon, setDownloadPolygon, images, setImages} = useContext(DataContext)
+    const {downloadPolygon, setDownloadPolygon, images, setImages} = useContext(DownloadDataContext)
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [downloadStarted, setDownloadStarted] = useState(false)
@@ -36,6 +36,7 @@ function DownloadPage() {
             })
 
         }
+        setDownloadStarted(false)
     }, [downloadPolygon, startDate, endDate]);
 
     useEffect(() => {

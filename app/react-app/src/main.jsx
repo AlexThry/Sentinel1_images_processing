@@ -6,9 +6,11 @@ import RootLayout from "./routes/RootLayout/RootLayout.jsx";
 import FrontPage from "./routes/FrontPage/FrontPage.jsx";
 import DownloadPage from "./routes/DownloadPage/DownloadPage.jsx";
 import ProcessPage from "./routes/ProcessPage/ProcessPage.jsx";
-import {DataProvider} from "./components/DataProvider/DataProvider.jsx";
+import {DowloadDataProvider} from "./components/DowloadDataProvider/DowloadDataProvider.jsx";
 import ViewPage from "./routes/ViewPage/ViewPage.jsx";
-import DataDetails from "./components/DataDetails/DataDetails.jsx";
+import DownloadDetails from "./components/DownloadDetails/DownloadDetails.jsx";
+import ProcessDetails from "./components/ProcessDetails/ProcessDetails.jsx";
+import {ProcessDataProvider} from "./components/ProcessDataProvider/ProcessDataProvider.jsx";
 
 
 const router = createBrowserRouter([
@@ -16,12 +18,18 @@ const router = createBrowserRouter([
             {path: "/", element: <FrontPage/>},
             {
                 path: "/download",
-                element: <DataProvider children={<DownloadPage/>}/>,
+                element: <DowloadDataProvider children={<DownloadPage/>}/>,
                 children: [
-                    {path: "/download/:id", element: <DataDetails/>}
+                    {path: "/download/:id", element: <DownloadDetails/>}
                 ],
             },
-            {path: "/process", element: <DataProvider children={<ProcessPage/>}/>},
+            {
+                path: "/process",
+                element: <ProcessDataProvider children={<ProcessPage/>}/>,
+                children: [
+                    {path: "/process/:id", element: <ProcessDetails/>}
+                ]
+            },
             {path: "/view", element: <ViewPage/>}
         ]}
 ])
