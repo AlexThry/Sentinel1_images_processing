@@ -4,6 +4,9 @@ import os
 import json
 from shapely.geometry import shape
 import sys
+from datetime import date
+from datetime import datetime
+
 
 
 if __name__ == "__main__":
@@ -29,9 +32,13 @@ if __name__ == "__main__":
     for i in selected:
         image_list["features"].append(images["features"][i])
 
+    now = datetime.now()
+    formatted_now = now.strftime("%Y-%m-%d_%H-%M-%S")
 
-    # Define the directory path
-    dir_path = "./data/asf_set"
+    folder_name = f"{shape(image_list['features'][0]['geometry'])};{formatted_now}"
+    dir_path = f"./data/asf_set/{folder_name}"
+    os.makedirs(dir_path, exist_ok=True)
+
 
     # Créer la session
     try:
@@ -41,11 +48,19 @@ if __name__ == "__main__":
         sys.exit(1)
 
     image_urls = []
-    for image in image_list["features"]:
+
+    jsonData = {"folder": folder_name, "date": str(date.today()), "images": {}, "polygon": image_list["features"][0]["geometry"]["coordinates"]}
+
+    for i in range(len(image_list["features"])):
 
         # Extract url
+        image = image_list["features"][i]
+        jsonData["images"][i] = image
         image_url = image["properties"]["url"]
         image_urls.append(image_url)
+
+    with open(dir_path + "/info.json", 'w') as f:
+        json.dump(jsonData, f)
 
 
     print(image_urls)
