@@ -4,6 +4,7 @@ const { exec } = require('child_process');
 const bodyParser = require('body-parser');
 const os = require('os');
 const fs = require('fs');
+const path = require('path');
 
 
 const app = express();
@@ -166,10 +167,23 @@ app.post("/process", (req, res) => {
     }
 })
 
-app.post("/downloaded", (req, res) => {
+app.get("/downloaded", (req, res) => {
     try {
-        console.log("downloaded")
-        res.status(200).json("downloaded");
+        const downloadPath = "./data/asf_set";
+        const filesAndDirs = fs.readdirSync(downloadPath, { withFileTypes: true });
+        const dirs = filesAndDirs.filter(dirent => dirent.isDirectory());
+        const dirNames = dirs.map(dirent => dirent.name);
+
+        const infoJsons = dirNames.map(dirName => {
+            const infoJsonPath = path.join(downloadPath, dirName, 'info.json');
+            const infoJsonStr = fs.readFileSync(infoJsonPath, 'utf8');
+            const infoJson = JSON.parse(infoJsonStr);
+            return infoJson;
+        });
+
+        console.log(infoJsons)
+
+        res.status(200).json(infoJsons);
     } catch (error) {
         console.error("erreur downloaded", error);
         res.status(500).send("erreur downloaded");
