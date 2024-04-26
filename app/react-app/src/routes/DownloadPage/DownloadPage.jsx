@@ -39,10 +39,6 @@ function DownloadPage() {
     }, [downloadPolygon, startDate, endDate]);
 
     useEffect(() => {
-        console.log(downloadMessage);
-    }, [downloadMessage]);
-
-    useEffect(() => {
         if (buttonClicked) {
             setDownloadMessage("Le téléchargement est en cours !")
             download({selected: checkboxStates, login: login, password: password})

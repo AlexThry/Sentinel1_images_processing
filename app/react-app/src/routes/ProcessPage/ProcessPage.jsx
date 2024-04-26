@@ -22,7 +22,6 @@ function ProcessPage() {
         "inputFile2": "S1A_IW_SLC__1SDV_20240401T054407_20240401T054434_053236_0673A0_742F.zip",
         "DEMResamplingMethod": "BILINEAR_INTERPOLATION",
         "orbitType": "DORIS Precise VOR (ENVISAT) (Auto Download)",
-        "formatOutput": "GeoTIFF",
         "ResamplingType": "BILINEAR_INTERPOLATION",
         "cohWinAz": "3",
         "cohWinRg": "10",
@@ -135,18 +134,6 @@ function ProcessPage() {
                                     <select name="demName" id="" defaultValue={inputParameters["demName"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
                                         {
                                             parameters["demName"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
-
-                                <div className={"flex flex-col relative my-4"}>
-                                    <span
-                                        className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>formatOutput</span>
-                                    <select name="formatOutput" id="" defaultValue={inputParameters["formatOutput"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["formatOutput"].map((value, index) => {
                                                 return <option key={index} value={value}>{value}</option>
                                             })
                                         }

@@ -210,6 +210,28 @@ app.get("/downloaded-images", (req, res) => {
     })
 })
 
+app.get("/gpt-path", (req, res) => {
+    fs.readFile("./scripts/gpt_path.txt", 'utf8', (err, data) => {
+        if (err) {
+            console.log(err)
+            res.status(500).json("Error reading file")
+        } else {
+            res.status(200).json(data)
+        }
+    })
+})
+
+app.post("/gpt-path", (req, res) => {
+    let path = req.body.path
+    fs.writeFile("./scripts/gpt_path.txt", path, (err, data) => {
+        if (err) {
+            console.log(err)
+            res.status(500).json("Error writing file")
+        } else {
+            res.status(200).json("ok")
+        }
+    })
+})
 
 app.listen(8080);
 

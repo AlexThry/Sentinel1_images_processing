@@ -42,6 +42,7 @@ if __name__ == "__main__":
 
     image_urls = []
     for image in image_list["features"]:
+
         # Extract url
         image_url = image["properties"]["url"]
         image_urls.append(image_url)
