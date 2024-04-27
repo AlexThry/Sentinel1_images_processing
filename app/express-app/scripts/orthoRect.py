@@ -5,8 +5,7 @@ import os
 
 if __name__ == "__main__":    
 
-    xmlGraph = '../xml/OrthorectGraph_final.xml'
-    outputPath = "../data/orthorectification/"
+    xmlGraph = 'xml/OrthorectGraph_final.xml'
     snapExecutablePath = "gpt"
 
     # Créer l'objet ArgumentParser
@@ -16,10 +15,13 @@ if __name__ == "__main__":
         # Ajouter les arguments
         # parser.add_argument('--parameters', type=str, help="Path vers le dictionaire(json) des parameters pour l'interferogramme")
         parser.add_argument('--input', type=str, help="Path pour l'image dim a orthorectifier")
+        parser.add_argument('--output', type=str, help="Path pour souvegarder la nouvelle image")
         parser.add_argument('--extension', type=str, help="Nom des bands generes à partir des l'interferogramme")
 
         # Parser les arguments
         args = parser.parse_args()
+        outputPath = args.output
+
 
         data_dict = {
             "inputFile": args.input,

@@ -1,0 +1,16 @@
+{
+    "orbitType": "Sentinel Precise (Auto Download)",
+    "DEMResamplingMethod": "BILINEAR_INTERPOLATION",
+    "ResamplingType": "BILINEAR_INTERPOLATION",
+    "demName": "SRTM 1Sec HGT",
+    "subtractFlatEarthPhase": true,
+    "cohWinAz": 3,
+    "cohWinRg": 10,
+    "subtractTopographicPhase": true,
+    "outputSigmaBand": true,
+    "outputGammaBand": false,
+    "outputBetaBand": false,
+    "windowSizeString": 3,
+    "subswath": "IW2",
+    "polygon": "POLYGON((6.064 45.7735,6.2525 45.7735,6.2525 45.9496,6.064 45.9496,6.064 45.7735))"
+}
