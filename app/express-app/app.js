@@ -137,10 +137,11 @@ app.post("/process", (req, res) => {
 
         let python;
         if (os.platform() === 'win32') {
-            python = spawn('venv//Scripts//python', ['scripts/interferogram.py', "--outputName", "prout"]);
+            python = spawn('venv//Scripts//python', ['scripts/interferogram_by_folder.py']);
         } else{
-            python = spawn('./venv/bin/python', ['scripts/interferogram.py', "--outputName", "prout"]);
+            python = spawn('./venv/bin/python', ['scripts/interferogram_by_folder.py']);
         }
+
         let error = "";
         python.stdout.on('data', (data) => {
             const str_data = `${data}`

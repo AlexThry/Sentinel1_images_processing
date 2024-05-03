@@ -37,7 +37,7 @@ if __name__ == "__main__":
     outputPathTif = "data/interferometric_image/tif/"
     outputPathDim = "data/interferometric_image/dim/"
     outputOrthoRectPath = "data/orthorectification/"
-    parametersPath = "scripts/parameters_group.json"
+    parametersPath = "scripts/parameters.json"
     rawImagesLocation = "data/asf_set/"
 
     # Créer l'objet ArgumentParser

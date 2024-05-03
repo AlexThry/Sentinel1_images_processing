@@ -16,3 +16,5 @@ tzdata==2024.1
 tzlocal==5.2
 urllib3==2.2.1
 zipp==3.18.1
+opencv-python
+numpy
