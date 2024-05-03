@@ -60,9 +60,9 @@ if __name__ == "__main__":
         except json.JSONDecodeError as e:
             print(f"Error: JSON decoding failed. {e.msg}")
 
-        file_name = data_dict["fileName"]
+        folder_name = data_dict["folder"]
 
-        directory_path = rawImagesLocation + file_name + "/"
+        directory_path = rawImagesLocation + folder_name + "/"
         images_list = get_zip_files(directory_path)
 
         for image_ind in range(len(images_list)):
@@ -72,9 +72,9 @@ if __name__ == "__main__":
 
                 output_name = generate_txt_name(image1, image2, data_dict["subswath"], "VV")
 
-                tif_path = outputPathTif + file_name + "/" + output_name
-                dim_path = outputPathDim + file_name + "/" + output_name
-                orthoRect_path = outputOrthoRectPath + file_name + "/" + output_name
+                tif_path = outputPathTif + folder_name + "/" + output_name
+                dim_path = outputPathDim + folder_name + "/" + output_name
+                orthoRect_path = outputOrthoRectPath + folder_name + "/" + output_name
 
                 check_and_create_directory(tif_path)
                 check_and_create_directory(dim_path)

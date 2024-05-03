@@ -48,6 +48,7 @@ async function fetchGptPath(setGptPath) {
         .then(path => setGptPath(path))
 }
 
+
 async function setGptPathFetch(gptPath) {
     const url = "http://localhost:8080/gpt-path"
     await fetch(url, {

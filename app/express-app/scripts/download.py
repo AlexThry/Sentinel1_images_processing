@@ -71,29 +71,5 @@ if __name__ == "__main__":
         print("error,Erreur lors du téléchargement")
         sys.exit(1)
 
-#     for image in image_list["features"]:
-#         geometry = image['geometry'] # Replace with actual method
-#         # Convert the geometry to a shapely polygon
-#         polygon = shape(geometry)
-#         timestamp = image["properties"]['processingDate']  # Replace with actual method
-#
-#         # Create old and new file paths
-#         old_file_path = os.path.join(dir_path, image["properties"]["fileName"])
-#         new_file_path = f'{timestamp}_{polygon}'
-#
-#         # Replace all spaces in new_file_path with no space
-#         new_file_path = new_file_path.replace('POLYGON (', '')
-#         new_file_path = new_file_path.replace(' ', ';')
-#         new_file_path = new_file_path.replace(',', '')
-#         new_file_path = new_file_path.replace(':', '')
-#         new_file_path = new_file_path.replace('.', ',')
-#         new_file_path = new_file_path.replace('))', ')')
-#
-#         new_file_path = os.path.join(dir_path, new_file_path)
-#         new_file_path = new_file_path.replace('\\', '/')
-#
-#         print(new_file_path)
-#         # Rename the file
-#         os.rename(old_file_path, new_file_path + ".zip")
 
     print("Les images ont été téléchargés avec succès.")
