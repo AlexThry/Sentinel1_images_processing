@@ -127,7 +127,7 @@ app.post("/process", (req, res) => {
 
     try {
         console.log("process")
-        fs.writeFile('scripts/parameters.json', data, (err) => {
+        fs.writeFile('scripts/parameters_group.json', data, (err) => {
             if (err) {
                 console.error('Erreur lors de l\'écriture du fichier :', err);
             } else {
