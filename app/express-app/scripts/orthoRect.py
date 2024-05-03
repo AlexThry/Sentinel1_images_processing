@@ -5,7 +5,8 @@ import os
 if __name__ == "__main__":    
 
     xmlGraph = 'xml/OrthorectGraph_final.xml'
-    snapExecutablePath = "gpt"
+    with open("scripts/gpt_path.txt") as f:
+        snapExecutablePath = f.read()
 
     # Créer l'objet ArgumentParser
     parser = argparse.ArgumentParser(description="Ortho rectification avec snap d'un image .dim.")
