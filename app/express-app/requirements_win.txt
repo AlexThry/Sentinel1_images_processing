@@ -18,3 +18,4 @@ urllib3==2.2.1
 zipp==3.18.1
 opencv-python
 numpy
+rioxarray
