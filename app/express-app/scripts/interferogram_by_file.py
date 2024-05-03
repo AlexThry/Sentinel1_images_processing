@@ -45,22 +45,22 @@ if __name__ == "__main__":
 
     try:
         # Ajouter les arguments
-        parser.add_argument('--fileName', type=str, help="Nom du dossier avec beaucoup des images.")
+        # parser.add_argument('--fileName', type=str, help="Nom du dossier avec beaucoup des images.")
 
         # Parser les arguments
         args = parser.parse_args()
-        file_name = args.fileName
         data_dict = {}
         try:
             with open(parametersPath, 'r') as json_file:
                 data_dict = json.load(json_file)
-                print("parameters loaded")
-
+                print("parameters loaded")  
         except FileNotFoundError:
             print(f"Error: The file '{parametersPath}' not found.")
 
         except json.JSONDecodeError as e:
             print(f"Error: JSON decoding failed. {e.msg}")
+
+        file_name = data_dict["fileName"]
 
         directory_path = rawImagesLocation + file_name + "/"
         images_list = get_zip_files(directory_path)
