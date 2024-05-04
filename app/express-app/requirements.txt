@@ -41,6 +41,6 @@ tzlocal==5.2
 urllib3==2.2.1
 wcwidth==0.2.13
 zipp==3.18.1
-opencv-python
+pillow==10.3.0
 numpy
 rioxarray

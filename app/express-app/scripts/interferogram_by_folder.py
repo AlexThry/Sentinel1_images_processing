@@ -101,7 +101,7 @@ if __name__ == "__main__":
                 # print("final command : \n ------------------ \n" + finalCmd)
 
                 os.system(finalCmd)
-#                 os.system(f'python scripts/tifToPng.py --pathTif "{tif_path + "/" + output_name + ".tif"}"')
+                os.system(f'python scripts/tifToPng.py --pathTif "{tif_path + "/" + output_name + ".tif"}"')
                 os.system(f'python scripts/orthoRect.py --input "{dim_path + "/" + output_name + ".dim"}" --output "{orthoRect_path + "/"}" --extension "{output_name}"')
 
             except IndexError:
