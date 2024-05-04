@@ -8,6 +8,8 @@ import argparse
 import numpy as np
 from PIL import Image
 import rioxarray
+import shutil
+
 
 def convert_date(date_str):
         date_obj = datetime.datetime.strptime(date_str, "%Y%m%d")
@@ -73,7 +75,14 @@ if __name__ == "__main__":
 
         folder_name = data_dict["folder"]
         directory_path = rawImagesLocation + folder_name + "/"
+        with open(directory_path + "info.json", "r") as f:
+            json_folder_info = json.load(f)
+        print(len(json_folder_info.keys()))
         images_list = get_zip_files(directory_path)
+        with open("./data/interferometric_image/tif/" + folder_name + "/info.json", "w") as f:
+            json.dump(json_folder_info, f)
+        with open("./data/orthorectification/" + folder_name + "/info.json", "w") as f:
+            json.dump(json_folder_info, f)
 
         for image_ind in range(len(images_list)):
             try:
