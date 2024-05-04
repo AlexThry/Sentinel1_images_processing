@@ -9,6 +9,7 @@ import numpy as np
 from PIL import Image
 import rioxarray
 import shutil
+from datetime import date
 
 
 def convert_date(date_str):
@@ -75,14 +76,12 @@ if __name__ == "__main__":
 
         folder_name = data_dict["folder"]
         directory_path = rawImagesLocation + folder_name + "/"
+        images_list = get_zip_files(directory_path)
         with open(directory_path + "info.json", "r") as f:
             json_folder_info = json.load(f)
-        print(len(json_folder_info.keys()))
-        images_list = get_zip_files(directory_path)
-        with open("./data/interferometric_image/tif/" + folder_name + "/info.json", "w") as f:
-            json.dump(json_folder_info, f)
-        with open("./data/orthorectification/" + folder_name + "/info.json", "w") as f:
-            json.dump(json_folder_info, f)
+        json_folder_info["date"] = str(date.today())
+        json_folder_info["polygon"] = data_dict["polygon"]
+
 
         for image_ind in range(len(images_list)):
             try:
@@ -151,6 +150,10 @@ if __name__ == "__main__":
             except IndexError:
                 print("Index out of range. No more pairs to process.")
                 break
+        with open("./data/interferometric_image/tif/" + folder_name + "/info.json", "w") as f:
+            json.dump(json_folder_info, f)
+        with open("./data/orthorectification/" + folder_name + "/info.json", "w") as f:
+            json.dump(json_folder_info, f)
 
     except Exception as e:
         traceback.print_exc()

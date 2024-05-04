@@ -6,7 +6,7 @@ import DownloadSelector from "../../components/DownloadSelector/DownloadSelector
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import DatePicker from "react-datepicker";
 import ProcessSelector from "../../components/ProcessSelector/ProcessSelector.jsx";
-import {ProcessDataContext} from "../../components/ProcessDataProvider/ProcessDataProvider.jsx";
+import {ProcessDataContext} from "../../DataProviders/ProcessDataProvider/ProcessDataProvider.jsx";
 
 
 function ProcessPage() {

@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     image_urls = []
 
-    jsonData = {"folder": folder_name, "date": str(date.today()), "images": {}, "polygon": image_list["features"][0]["geometry"]["coordinates"]}
+    jsonData = {"folder": folder_name, "date": s    tr(date.today()), "images": {}, "polygon": image_list["features"][0]["geometry"]["coordinates"]}
 
     for i in range(len(image_list["features"])):
 

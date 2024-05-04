@@ -193,8 +193,16 @@ app.get("/downloaded", (req, res) => {
 
 app.post("/processed", (req, res) => {
     try {
-        console.log("processed")
-        res.status(200).json("processed");
+        const interfPath = "./data/interferometric_image/tif";
+        const filesAndDirs = fs.readdirSync(interfPath, { withFileTypes: true });
+        const dirs = filesAndDirs.filter(dirent => dirent.isDirectory());
+        const dirInfos = dirs.map(dir => {
+            const infoJsonPath = path.join(interfPath, dir.name, 'info.json');
+            const infoJsonStr = fs.readFileSync(infoJsonPath, 'utf8');
+            const infoJson = JSON.parse(infoJsonStr);
+            return infoJson;
+        });
+        res.status(200).json(dirInfos);
     } catch (error) {
         console.error("erreur processed", error);
         res.status(500).send("erreur processed");
@@ -209,18 +217,6 @@ app.get("/parameters", (req, res) => {
         } else {
             const jsonData = JSON.parse(data);
             res.status(200).json(jsonData);
-        }
-    })
-})
-
-app.get("/downloaded-images", (req, res) => {
-    fs.readdir("./data/asf_set", (err, files) => {
-        if (err) {
-            console.error(`Error reading file from disk: ${err}`);
-            res.status(500).send('Error reading file');
-        } else {
-            const zipFiles = files.filter(file => file.endsWith('.zip'));
-            res.status(200).json(zipFiles);
         }
     })
 })
@@ -247,6 +243,34 @@ app.post("/gpt-path", (req, res) => {
         }
     })
 })
+
+app.get("/downloaded-images", (req, res) => {
+    fs.readdir("./data/asf_set", (err, files) => {
+        if (err) {
+            console.error(`Error reading file from disk: ${err}`);
+            res.status(500).send('Error reading file');
+        } else {
+            const zipFiles = files.filter(file => file.endsWith('.zip'));
+            res.status(200).json(zipFiles);
+        }
+    })
+})
+
+app.post("/folder-subs", (req, res) => {
+    const folderPath = "./data/" + req.body.path;
+
+    fs.readdir(folderPath, (err, files) => {
+        if (err) {
+            console.error(`Error reading directory: ${err}`);
+            res.status(500).send('Error reading directory');
+        } else {
+            const directories = files.filter(file => fs.statSync(path.join(folderPath, file)).isDirectory());
+            res.status(200).json({ subs: directories });
+        }
+    });
+})
+
+app.use("/interferometric_image", express.static(path.join(__dirname, "data/interferometric_image/tif")));
 
 app.listen(8080);
 

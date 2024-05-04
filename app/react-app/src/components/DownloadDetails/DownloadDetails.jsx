@@ -1,7 +1,7 @@
 import Modal from "../Modal/Modal.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useContext, useEffect, useRef, useState} from "react";
-import {DownloadDataContext} from "../DowloadDataProvider/DowloadDataProvider.jsx";
+import {DownloadDataContext} from "../../DataProviders/DowloadDataProvider/DowloadDataProvider.jsx";
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';

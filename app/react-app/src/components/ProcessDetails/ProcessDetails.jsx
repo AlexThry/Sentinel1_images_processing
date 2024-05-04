@@ -1,7 +1,7 @@
 import Modal from "../Modal/Modal.jsx";
 import {Link, useParams} from "react-router-dom";
 import {useContext, useEffect} from "react";
-import {ProcessDataContext} from "../ProcessDataProvider/ProcessDataProvider.jsx";
+import {ProcessDataContext} from "../../DataProviders/ProcessDataProvider/ProcessDataProvider.jsx";
 
 function ProcessDetails() {
 

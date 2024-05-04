@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import {DownloadDataContext} from "../DowloadDataProvider/DowloadDataProvider.jsx";
+import {DownloadDataContext} from "../../DataProviders/DowloadDataProvider/DowloadDataProvider.jsx";
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import OSM from 'ol/source/OSM.js';
