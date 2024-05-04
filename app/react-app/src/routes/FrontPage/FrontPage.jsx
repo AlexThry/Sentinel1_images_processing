@@ -29,7 +29,7 @@ function FrontPage() {
                        className={"input input-bordered w-full"} value={gptPath} onChange={(e) => setGptPath(e.target.value)}/>
                 <input type="button" className={"btn ml-2"} value={"Valider"} onClick={validateHandeler}/>
             </div>
-            <Markdown className={"prose lg:prose-xl mx-10 mt-6 w-full"}>{markdown}</Markdown>
+            <Markdown className={"prose lg:prose-xl mx-auto mt-6 w-full "}>{markdown}</Markdown>
         </>
     )
 }

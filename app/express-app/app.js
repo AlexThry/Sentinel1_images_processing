@@ -23,7 +23,7 @@ if (!fs.existsSync('venv')) {
 
 
         if (os.platform() === 'win32') {
-            activateCommand = 'venv\\Scripts\\python -m pip install -r requirements_win.txt ';
+            activateCommand = 'venv\\Scripts\\python -  m pip install -r requirements_win.txt ';
         } else {
             activateCommand = 'source venv/bin/activate && pip install -r requirements.txt';
         }
