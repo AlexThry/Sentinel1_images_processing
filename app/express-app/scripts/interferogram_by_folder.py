@@ -36,6 +36,7 @@ def generate_txt_name(image1, image2, subwath, polarization):
 def get_zip_files(directory):
     try:
         zip_files = [file for file in os.listdir(directory) if file.endswith(".zip")]
+        zip_files.sort()
         return zip_files
     except FileNotFoundError:
         print("Error: Directory not found.")
@@ -48,6 +49,15 @@ def check_and_create_directory(directory):
     except OSError:
         print("Error: Failed to create directory.")
         sys.exit(1)
+
+def get_index_interferogram(name):
+     if os.path.exists(outputPathDim):
+        files = os.listdir(outputPathDim)
+        count = sum(1 for file in files if file.startswith(name))
+        return count
+     else:
+         return 0
+
 
 if __name__ == "__main__":
     try:
@@ -87,6 +97,8 @@ if __name__ == "__main__":
         json_folder_info["polygon"] = data_dict["polygon"]
         json_folder_info["images"] = {"interferometric": {"coh": [], "i": [], "q": [] }, "orthorectification": {"coh": [], "phase": [] } }
 
+        index = get_index_interferogram(folder_name)
+        folder_name = folder_name + "_" + str(index)
 
         for image_ind in range(len(images_list)):
             try:
@@ -98,8 +110,6 @@ if __name__ == "__main__":
                 tif_path = outputPathTif + folder_name + "/" + output_name
                 dim_path = outputPathDim + folder_name + "/" + output_name
                 orthoRect_path = outputOrthoRectPath + folder_name + "/" + output_name
-
-                print(orthoRect_path + "/" + output_name + "_coh.tif")
 
                 check_and_create_directory(tif_path)
                 check_and_create_directory(dim_path)
