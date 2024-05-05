@@ -36,8 +36,8 @@ def generate_txt_name(image1, image2, subwath, polarization):
 def get_zip_files(directory):
     try:
         zip_files = [file for file in os.listdir(directory) if file.endswith(".zip")]
-        zip_files.sort()
-        return zip_files
+        sorted_list = sorted(zip_files, key=lambda x: x.split('_')[5])
+        return sorted_list
     except FileNotFoundError:
         print("Error: Directory not found.")
         sys.exit(1)
@@ -99,6 +99,7 @@ if __name__ == "__main__":
 
         index = get_index_interferogram(folder_name)
         folder_name = folder_name + "_" + str(index)
+        json_folder_info["folder"] = folder_name
 
         for image_ind in range(len(images_list)):
             try:
