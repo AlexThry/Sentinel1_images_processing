@@ -197,10 +197,14 @@ app.post("/processed", (req, res) => {
         const filesAndDirs = fs.readdirSync(interfPath, { withFileTypes: true });
         const dirs = filesAndDirs.filter(dirent => dirent.isDirectory());
         const dirInfos = dirs.map(dir => {
-            const infoJsonPath = path.join(interfPath, dir.name, 'info.json');
-            const infoJsonStr = fs.readFileSync(infoJsonPath, 'utf8');
-            const infoJson = JSON.parse(infoJsonStr);
-            return infoJson;
+            try {
+                const infoJsonPath = path.join(interfPath, dir.name, 'info.json');
+                const infoJsonStr = fs.readFileSync(infoJsonPath, 'utf8');
+                const infoJson = JSON.parse(infoJsonStr);
+                return infoJson;
+            } catch {
+
+            }
         });
         res.status(200).json(dirInfos);
     } catch (error) {
@@ -271,6 +275,7 @@ app.post("/folder-subs", (req, res) => {
 })
 
 app.use("/interferometric_image", express.static(path.join(__dirname, "data/interferometric_image/tif")));
+app.use("/orthorectification_images", express.static(path.join(__dirname, "data/orthorectification")))
 
 app.listen(8080);
 
