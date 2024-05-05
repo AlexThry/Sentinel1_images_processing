@@ -182,8 +182,6 @@ app.get("/downloaded", (req, res) => {
             return infoJson;
         });
 
-        console.log(infoJsons)
-
         res.status(200).json(infoJsons);
     } catch (error) {
         console.error("erreur downloaded", error);

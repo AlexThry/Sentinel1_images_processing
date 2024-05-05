@@ -39,14 +39,18 @@ function ViewSelector({setProcessed, processed, processedLoadded, setProcessedLo
                 <tbody>
 
                     {
-                        processed.map((group, index) => (
+                        processed.map((group, index) => {
+                            if (group) {
+                            return (
+                                <tr key={index}>
+                                    <td>{group["date"]}</td>
+                                    <td><input type="radio" name={"show"} className={"radio"} onChange={handleRadioChange} value={group["polygon"]} data-folder={group["folder"]}/></td>
+                                </tr>
+                                )
+                            }
 
-                            <tr key={index}>
-                                <td>{group["date"]}</td>
-                                <td><input type="radio" name={"show"} className={"radio"} onChange={handleRadioChange} value={group["polygon"]} data-folder={group["folder"]}/></td>
-                            </tr>
 
-                        ))
+                })
                     }
 
                 </tbody>
