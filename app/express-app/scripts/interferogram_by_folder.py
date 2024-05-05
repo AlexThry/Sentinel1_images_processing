@@ -10,6 +10,10 @@ from PIL import Image
 import rioxarray
 import shutil
 from datetime import date
+import shlex
+import subprocess
+
+
 
 
 def convert_date(date_str):
@@ -113,7 +117,9 @@ if __name__ == "__main__":
                     paramLine += f" -P{k}=\"{data_dict[k]}\""
 
                 finalCmd = f"{snapExecutablePath} {xmlGraph} {paramLine}"
-                os.system(finalCmd)
+#                 os.system(finalCmd)
+                finalCmd_list = shlex.split(finalCmd)
+                subprocess.run(finalCmd_list, check=True)
 
                 # print("final command : \n ------------------ \n" + finalCmd)
 
@@ -157,7 +163,9 @@ if __name__ == "__main__":
 
 #                 os.system(f'source venv/bin/activate')
 #                 os.system(f'python scripts/tifToPng.py --pathTif "{tif_path + "/" + output_name + ".tif"}"')
-                os.system(f'python scripts/orthoRect.py --input "{dim_path + "/" + output_name + ".dim"}" --output "{orthoRect_path + "/"}" --extension "{output_name}"')
+#                 os.system(f'python scripts/orthoRect.py --input "{dim_path + "/" + output_name + ".dim"}" --output "{orthoRect_path + "/"}" --extension "{output_name}"')
+                subprocess.run(["python", "scripts/orthoRect.py", "--input", f"{dim_path}/{output_name}.dim", "--output", f"{orthoRect_path}/", "--extension", f"{output_name}"], check=True)
+
 
                 im3 = rioxarray.open_rasterio(orthoRect_path + "/" + output_name + "_coh.tif").data[0]
                 mean3 = im3.mean()

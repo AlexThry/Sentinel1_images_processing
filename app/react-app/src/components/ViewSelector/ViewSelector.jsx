@@ -22,9 +22,6 @@ function ViewSelector({setProcessed, processed, processedLoadded, setProcessedLo
         fetchFolderSize("orthorectification/" + event.target.dataset.folder, setSubsFolders)
     }
 
-    useEffect(() => {
-        console.log(subsFolders)
-    }, [subsFolders]);
 
     return (
         <>
@@ -44,13 +41,18 @@ function ViewSelector({setProcessed, processed, processedLoadded, setProcessedLo
                             return (
                                 <tr key={index}>
                                     <td>{group["date"]}</td>
-                                    <td><input type="radio" name={"show"} className={"radio"} onChange={handleRadioChange} value={group["polygon"]} data-folder={group["folder"]}/></td>
+                                    <td>
+                                        <input type="radio" name={"show"} className={"radio"}
+                                               onChange={handleRadioChange} value={group["polygon"]}
+                                               data-folder={group["folder"]}
+                                        />
+                                    </td>
                                 </tr>
-                                )
+                            )
                             }
 
 
-                })
+                        })
                     }
 
                 </tbody>
