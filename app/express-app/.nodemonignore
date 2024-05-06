@@ -1,0 +1,6 @@
+/data/*
+
+/venv/*
+/scripts/parameters.json
+/xml/*
+/scripts/gpt_path.txt
