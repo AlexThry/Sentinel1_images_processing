@@ -11,6 +11,23 @@ const app = express();
 
 app.use(bodyParser.json());
 
+const newFoldersPaths = []
+newFoldersPaths.push(path.join(__dirname, 'data'))
+newFoldersPaths.push(path.join(__dirname, 'data/asf_set'))
+newFoldersPaths.push(path.join(__dirname, 'data/interferometric_image'))
+newFoldersPaths.push(path.join(__dirname, 'data/orthorectification'))
+newFoldersPaths.push(path.join(__dirname, 'data/search_data_output'))
+
+newFoldersPaths.forEach((newFolderPath) => {
+    if (!fs.existsSync(newFolderPath)) {
+        fs.mkdirSync(newFolderPath, { recursive: true });
+        console.log(`Dossier ${newFolderPath} créé avec succès.`);
+    } else {
+        console.log(`Le dossier ${newFolderPath} existe déjà.`);
+    }
+});
+
+
 if (!fs.existsSync('venv')) {
 
     exec('python -m venv venv', (error) => {
