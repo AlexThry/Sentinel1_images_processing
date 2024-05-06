@@ -1,7 +1,7 @@
 # How run this backend app
 ```bash
 docker build -t <name> .
-docker run -p 8080:8080 -it --rm <name>
+docker run -p 8080:8080  -v ./save:/Sentinel1_images_processing/app/express-app -it --rm <name>
 cd /Sentinel1_images_processing/app/express-app
 supervisor app.js
 ```

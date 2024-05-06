@@ -13,6 +13,7 @@ USER root
 # Install dependencies and tools
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends --no-install-suggests \
+    sudo \
     build-essential \
     checkinstall \
     libgfortran5 \
