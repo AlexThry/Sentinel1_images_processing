@@ -177,7 +177,7 @@ if __name__ == "__main__":
 #                 os.system(f'source venv/bin/activate')
 #                 os.system(f'python scripts/tifToPng.py --pathTif "{tif_path + "/" + output_name + ".tif"}"')
 #                 os.system(f'python scripts/orthoRect.py --input "{dim_path + "/" + output_name + ".dim"}" --output "{orthoRect_path + "/"}" --extension "{output_name}"')
-                subprocess.run(["python", "scripts/orthoRect.py", "--input", f"{dim_path}/{output_name}.dim", "--output", f"{orthoRect_path}/", "--extension", f"{output_name}"], check=True)
+                subprocess.run(["./venv/bin/python", "scripts/orthoRect.py", "--input", f"{dim_path}/{output_name}.dim", "--output", f"{orthoRect_path}/", "--extension", f"{output_name}"], check=True)
 
 
                 im3 = rioxarray.open_rasterio(orthoRect_path + "/" + output_name + "_coh.tif").data[0]
