@@ -80,6 +80,7 @@ if __name__ == "__main__":
         try:
             with open(parametersPath, 'r') as json_file:
                 data_dict = json.load(json_file)
+                print(data_dict)
                 print("Parameters loaded")
         except FileNotFoundError:
             print(f"Error: The file '{parametersPath}' not found.")
@@ -96,6 +97,7 @@ if __name__ == "__main__":
         json_folder_info["date"] = str(date.today())
         json_folder_info["polygon"] = data_dict["polygon"]
         json_folder_info["images"] = {"interferometric": {"coh": [], "i": [], "q": [] }, "orthorectification": {"coh": [], "phase": [] } }
+        json_folder_info["processName"] = data_dict["processName"]
 
         index = get_index_interferogram(folder_name)
         folder_name = folder_name + "_" + str(index)

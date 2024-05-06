@@ -12,11 +12,15 @@ import DownloadDetails from "./components/DownloadDetails/DownloadDetails.jsx";
 import ProcessDetails from "./components/ProcessDetails/ProcessDetails.jsx";
 import {ProcessDataProvider} from "./DataProviders/ProcessDataProvider/ProcessDataProvider.jsx";
 import {ViewDataProvider} from "./DataProviders/ViewDataProvider/ViewDataProvider.jsx";
+import ViewDetails from "./components/ViewDetails/ViewDetails.jsx";
+import {MainDataContext} from "./DataProviders/MainDataProvider/MainDataProvider.jsx";
 
 
 const router = createBrowserRouter([
     {path: '/', element: <RootLayout/>, children: [
-            {path: "/", element: <FrontPage/>},
+            {
+                path: "/", element: <FrontPage/>
+            },
             {
                 path: "/download",
                 element: <DowloadDataProvider children={<DownloadPage/>}/>,
@@ -31,7 +35,13 @@ const router = createBrowserRouter([
                     {path: "/process/:id", element: <ProcessDetails/>}
                 ]
             },
-            {path: "/view", element: <ViewDataProvider children={<ViewPage/>}/> }
+            {
+                path: "/view",
+                element: <ViewDataProvider children={<ViewPage/>}/>,
+                children: [
+                    {path: "/view/:id", element: <ViewDetails/>}
+                ]
+            }
         ]}
 ])
 

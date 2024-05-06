@@ -7,12 +7,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import DownloadSelector from "../../components/DownloadSelector/DownloadSelector.jsx";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import {Outlet} from "react-router-dom";
+import Modal from "../../components/Modal/Modal.jsx";
 
 
 
 
 function DownloadPage() {
-    const {downloadPolygon, setDownloadPolygon, images, setImages} = useContext(DownloadDataContext)
+    const {downloadPolygon, setDownloadPolygon, images, setImages, isDownloading, setIsDownloading} = useContext(DownloadDataContext)
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [downloadStarted, setDownloadStarted] = useState(false)
@@ -24,7 +25,6 @@ function DownloadPage() {
     const [checkboxStates, setCheckboxStates] = useState({});
 
     const [dataLoaded, setDataLoaded] = useState(false)
-// https://datapool.asf.alaska.edu/BROWSE/SA/S1A_IW_SLC__1SDV_20240413T054406_20240413T054433_053411_067A88_8905.jpg
 
     useEffect(() => {
 
@@ -42,7 +42,7 @@ function DownloadPage() {
     useEffect(() => {
         if (buttonClicked) {
             setDownloadMessage("Le téléchargement est en cours !")
-            download({selected: checkboxStates, login: login, password: password})
+            download({selected: checkboxStates, login: login, password: password}, setIsDownloading)
                 .then(message => setDownloadMessage(message))
                 .then(() => console.log(downloadMessage))
 
@@ -65,6 +65,18 @@ function DownloadPage() {
 
     return (
         <>
+            {isDownloading && (
+                <>
+                    <Modal isNotRemovable={true}>
+                        <div className="mockup-window border bg-base-300 w-[30vw]">
+                            <div className="flex flex-col justify-center items-center px-4 py-16 bg-base-200">
+                                <div>Téléchargement en cours</div>
+                                <span className="loading loading-spinner loading-lg"></span>
+                            </div>
+                        </div>
+                    </Modal>
+                </>
+            )}
             <Outlet/>
             <Splitter className={"h-[calc(100vh-4rem)]"}>
                 <SplitterPanel size={30} minSize={30} className={"overflow-y-scroll"}>
@@ -167,7 +179,8 @@ export async function search(polygon, startDate, endDate) {
     }
 }
 
-export async function download(body) {
+export async function download(body, setIsDownloading) {
+    setIsDownloading(true)
 
     console.log(body.selected)
     let selected = [];
@@ -188,6 +201,7 @@ export async function download(body) {
 
 
     return await fetch("http://localhost:8080/download", {
+
         method: "POST",
         body: JSON.stringify(newData),
         headers: {
@@ -196,7 +210,11 @@ export async function download(body) {
     })
         .then(res => res.json())
         .then(data => {
+            setIsDownloading(false)
             return data
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error)
+            setIsDownloading(false)
+        })
 }

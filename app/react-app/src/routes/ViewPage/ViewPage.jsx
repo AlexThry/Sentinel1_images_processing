@@ -4,6 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import ViewSelector from "../../components/ViewSelector/ViewSelector.jsx";
 import {ViewDataContext} from "../../DataProviders/ViewDataProvider/ViewDataProvider.jsx";
 import ImagesViewer from "../../components/ImagesViewer/ImagesViewer.jsx";
+import {Outlet} from "react-router-dom";
 
 function ViewPage() {
 
@@ -34,8 +35,9 @@ function ViewPage() {
 
     return (
         <>
+            <Outlet/>
             <Splitter className={"h-[calc(100vh-4rem)]"}>
-                <SplitterPanel size={20} minSize={20} className={"p-4 overflow-y-scroll"}>
+                <SplitterPanel size={30} minSize={30} className={"p-4 overflow-y-scroll"}>
                     <h1 className={"font-bold text-xl"}>Type de géometrie</h1>
                     <label className="label cursor-pointer">
                         <span className="label-text">Géométrie sol</span>

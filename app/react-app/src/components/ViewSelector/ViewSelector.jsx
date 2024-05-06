@@ -13,6 +13,10 @@ function ViewSelector({setProcessed, processed, processedLoadded, setProcessedLo
             .catch(e => console.log(e))
     }, []);
 
+    useEffect(() => {
+        console.log(processed)
+    }, [processed])
+
 
     const handleRadioChange = (event) => {
         let rawCoordinates = event.target.value.replace("POLYGON((", "").replace("))", "").split(",")
@@ -30,6 +34,7 @@ function ViewSelector({setProcessed, processed, processedLoadded, setProcessedLo
                 <thead>
                 <tr>
                     <th>Date de traitement</th>
+                    <td>Nom</td>
                     <th>Show</th>
                 </tr>
                 </thead>
@@ -41,6 +46,7 @@ function ViewSelector({setProcessed, processed, processedLoadded, setProcessedLo
                             return (
                                 <tr key={index}>
                                     <td>{group["date"]}</td>
+                                    <td>{group["processName"]}</td>
                                     <td>
                                         <input type="radio" name={"show"} className={"radio"}
                                                onChange={handleRadioChange} value={group["polygon"]}
@@ -48,13 +54,9 @@ function ViewSelector({setProcessed, processed, processedLoadded, setProcessedLo
                                         />
                                     </td>
                                 </tr>
-                            )
-                            }
-
-
+                            )}
                         })
                     }
-
                 </tbody>
             </table>
         }

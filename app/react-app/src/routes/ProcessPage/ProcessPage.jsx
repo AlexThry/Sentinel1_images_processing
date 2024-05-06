@@ -7,10 +7,11 @@ import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import DatePicker from "react-datepicker";
 import ProcessSelector from "../../components/ProcessSelector/ProcessSelector.jsx";
 import {ProcessDataContext} from "../../DataProviders/ProcessDataProvider/ProcessDataProvider.jsx";
+import Modal from "../../components/Modal/Modal.jsx";
 
 
 function ProcessPage() {
-    const {processPolygon, setProcessPolygon, previewPolygon } = useContext(ProcessDataContext)
+    const {processPolygon, setProcessPolygon, previewPolygon, isProcessing, setIsProcessing } = useContext(ProcessDataContext)
 
     const [parametersLoaded, setParametersLoaded] = useState(false)
     const [imagesNamesLoaded, setImagesNamesLoaded] = useState(false)
@@ -19,6 +20,7 @@ function ProcessPage() {
     const [parameters, setParameters] = useState(null)
     const [imagesNames, setImagesNames] = useState(null)
     const [response, setResponse] = useState("")
+    const [processName, setProcessName] = useState("")
     const [inputParameters, setInputParameters] = useState({
         "folder": "",
         "DEMResamplingMethod": "BILINEAR_INTERPOLATION",
@@ -31,7 +33,8 @@ function ProcessPage() {
         "polygon": "",
         "subswath": "IW1",
         "windowSizeString": "3",
-        "demName": "SRTM 1Sec HGT"
+        "demName": "SRTM 1Sec HGT",
+        "processName": ""
     })
 
     const handleInputChange = (event) => {
@@ -42,8 +45,16 @@ function ProcessPage() {
         }));
     }
 
+    const handleProcessNameChange = (event) => {
+        setProcessName(event.target.value)
+    }
+
+    useEffect(() => {
+        console.log(inputParameters)
+    }, [inputParameters]);
+
     function validate() {
-        process(inputParameters, setResponse)
+        process(inputParameters, setResponse, setIsProcessing)
         console.log(inputParameters)
     }
 
@@ -70,193 +81,252 @@ function ProcessPage() {
     return (
         <>
             <Outlet/>
+            {isProcessing && (
+                <>
+                    <Modal isNotRemovable={true}>
+                        <div className="mockup-window border bg-base-300 w-[30vw]">
+                            <div className="flex flex-col justify-center items-center px-4 py-16 bg-base-200">
+                                <div>Traitement en cours</div>
+                                <span className="loading loading-spinner loading-lg"></span>
+                            </div>
+                        </div>
+                    </Modal>
+                </>
+            )}
             <Splitter className={"h-[calc(100vh-4rem)]"}>
-                <SplitterPanel size={35} minSize={35} className={"overflow-y-scroll"}>
+            <SplitterPanel size={35} minSize={35} className={"overflow-y-scroll"}>
                     <div className={"w-full p-3"}>
                         <div className={"overflow-y-scroll"}>
 
 
-                        {processPolygon !== "" && (
-                            <div>
-                                <h1 className={"text-2xl font-bold mb-4"}>Selection</h1>
-                                <DataDisplayer data={processPolygon} dataName={"Selection"} onChange={handleInputChange}/>
+                            {processPolygon !== "" && (
+                                <div>
+                                    <h1 className={"text-2xl font-bold mb-4"}>Selection</h1>
+                                    <DataDisplayer data={processPolygon} dataName={"Selection"}
+                                                   onChange={handleInputChange}/>
+                                </div>
+                            )}
+
+
+                            <ProcessSelector className={"overflow-x-auto max-h-80 overflow-y-scroll pb-4"}
+                                             setImagePack={setImagePack}/>
+
+
+                            <h1 className={"text-2xl font-bold mb-4"}>Choix des paramètres</h1>
+
+                            <h2>Nommez votre traiment</h2>
+                            <div className={"flex flex-col relative my-4"}>
+                                    <span
+                                        className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>Nom du traitement</span>
+                                <input type="text" placeholder={"Nom du traitement"} name={"processName"} className={"input input-bordered w-full"} onChange={handleInputChange}/>
                             </div>
-                    )}
 
 
-                        <ProcessSelector className={"overflow-x-auto max-h-80 overflow-y-scroll pb-4"} setImagePack={setImagePack}/>
+                            {parametersLoaded && (
+                                <div>
 
 
-                        <h1 className={"text-2xl font-bold mb-4"}>Choix des paramètres</h1>
-
-                        {parametersLoaded && (
-                            <div>
-
-
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>DEMResamplingMethod</span>
-                                    <select name="DEMResamplingMethod" id="" defaultValue={inputParameters["DEMResamplingMethod"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["DEMResamplingMethod"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="DEMResamplingMethod" id=""
+                                                defaultValue={inputParameters["DEMResamplingMethod"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["DEMResamplingMethod"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>ResamplingType</span>
-                                    <select name="ResamplingType" id="" defaultValue={inputParameters["ResamplingType"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["ResamplingType"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="ResamplingType" id=""
+                                                defaultValue={inputParameters["ResamplingType"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["ResamplingType"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex justify-center flex-wrap"}>
-                                    <div className={"flex flex-col relative m-2"}>
+                                    <div className={"flex justify-center flex-wrap"}>
+                                        <div className={"flex flex-col relative m-2"}>
                                         <span
                                             className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>cohWinAz</span>
-                                        <input type="number" defaultValue={inputParameters["cohWinAz"]} name="cohWinAz" id=""
-                                               className={"input input-bordered w-24"} onChange={handleInputChange}/>
-                                    </div>
+                                            <input type="number" defaultValue={inputParameters["cohWinAz"]}
+                                                   name="cohWinAz" id=""
+                                                   className={"input input-bordered w-24"}
+                                                   onChange={handleInputChange}/>
+                                        </div>
 
-                                    <div className={"flex flex-col relative m-2"}>
+                                        <div className={"flex flex-col relative m-2"}>
                                         <span
                                             className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>cohWinRg</span>
-                                        <input type="number" defaultValue={inputParameters["cohWinRg"]} name="cohWinRg" id=""
-                                               className={"input input-bordered w-24"} onChange={handleInputChange}/>
-                                    </div>
+                                            <input type="number" defaultValue={inputParameters["cohWinRg"]}
+                                                   name="cohWinRg" id=""
+                                                   className={"input input-bordered w-24"}
+                                                   onChange={handleInputChange}/>
+                                        </div>
 
-                                    <div className={"flex flex-col relative m-2"}>
+                                        <div className={"flex flex-col relative m-2"}>
                                         <span
                                             className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>windowSize</span>
-                                        <input type="number" defaultValue={inputParameters["windowSizeString"]} name="windowSizeString" id=""
-                                               className={"input input-bordered w-24"} onChange={handleInputChange}/>
+                                            <input type="number" defaultValue={inputParameters["windowSizeString"]}
+                                                   name="windowSizeString" id=""
+                                                   className={"input input-bordered w-24"}
+                                                   onChange={handleInputChange}/>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>demName</span>
-                                    <select name="demName" id="" defaultValue={inputParameters["demName"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["demName"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="demName" id="" defaultValue={inputParameters["demName"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["demName"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>orbitType</span>
-                                    <select name="orbitType" id="" defaultValue={inputParameters["orbitType"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["orbitType"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="orbitType" id="" defaultValue={inputParameters["orbitType"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["orbitType"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>outputBetaBand</span>
-                                    <select name="outputBetaBand" id="" defaultValue={inputParameters["outputBetaBand"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["outputBetaBand"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="outputBetaBand" id=""
+                                                defaultValue={inputParameters["outputBetaBand"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["outputBetaBand"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>outputGammaBand</span>
-                                    <select name="outputGammaBand" id="" defaultValue={inputParameters["outputGammaBand"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["outputGammaBand"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="outputGammaBand" id=""
+                                                defaultValue={inputParameters["outputGammaBand"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["outputGammaBand"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>outputSigmaBand</span>
-                                    <select name="outputSigmaBand" id="" defaultValue={inputParameters["outputSigmaBand"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["outputSigmaBand"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="outputSigmaBand" id=""
+                                                defaultValue={inputParameters["outputSigmaBand"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["outputSigmaBand"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>subtractFlatEarthPhase</span>
-                                    <select name="subtractFlatEarthPhase" id="" defaultValue={inputParameters["subtractFlatEarthPhase"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["subtractFlatEarthPhase"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="subtractFlatEarthPhase" id=""
+                                                defaultValue={inputParameters["subtractFlatEarthPhase"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["subtractFlatEarthPhase"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>subtractTopographicPhase</span>
-                                    <select name="subtractTopographicPhase" id="" defaultValue={inputParameters["subtractTopographicPhase"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["subtractTopographicPhase"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="subtractTopographicPhase" id=""
+                                                defaultValue={inputParameters["subtractTopographicPhase"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["subtractTopographicPhase"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>subswath</span>
-                                    <select name="subswath" id="" defaultValue={inputParameters["subswath"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["subswath"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="subswath" id="" defaultValue={inputParameters["subswath"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["subswath"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <div className={"flex flex-col relative my-4"}>
+                                    <div className={"flex flex-col relative my-4"}>
                                     <span
                                         className={"text-sm absolute -top-2.5 left-3 z-10 px-1 bg-white rounded"}>demName</span>
-                                    <select name="demName" id="" defaultValue={inputParameters["demName"]} className={"select select-bordered w-full"} onChange={handleInputChange}>
-                                        {
-                                            parameters["demName"].map((value, index) => {
-                                                return <option key={index} value={value}>{value}</option>
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                                        <select name="demName" id="" defaultValue={inputParameters["demName"]}
+                                                className={"select select-bordered w-full"}
+                                                onChange={handleInputChange}>
+                                            {
+                                                parameters["demName"].map((value, index) => {
+                                                    return <option key={index} value={value}>{value}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </div>
 
-                                <button onClick={validate} className={`btn btn-outline mt-4 w-full`}>Valider</button>
-                            </div>
-                        )}
+                                    <button onClick={validate} className={`btn btn-outline mt-4 w-full`}>Valider
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                     </div>
                 </SplitterPanel>
                 <SplitterPanel size={65} minSize={55}>
-                    <AreaSelector inputClasses={"w-full h-full"} className={"w-full h-full"} data={processPolygon} dataSetter={setProcessPolygon} inputPolygon={previewPolygon}></AreaSelector>
+                    <AreaSelector inputClasses={"w-full h-full"} className={"w-full h-full"} data={processPolygon}
+                                  dataSetter={setProcessPolygon} inputPolygon={previewPolygon}></AreaSelector>
                 </SplitterPanel>
             </Splitter>
 
@@ -299,7 +369,8 @@ async function fetchDownloadedImages(setImagesNames, setImagesNamesLoaded) {
         })
 }
 
-async function process(inputParameters, setResponse) {
+async function process(inputParameters, setResponse, setIsProcessing) {
+    setIsProcessing(true)
     const url = "http://localhost:8080/process"
 
     let response = await fetch(url, ({
@@ -310,5 +381,8 @@ async function process(inputParameters, setResponse) {
         }
     }))
         .then(res => res.json())
-        .then(data => setResponse(data))
+        .then(data => {
+            setResponse(data)
+            setIsProcessing(false)
+        })
 }
