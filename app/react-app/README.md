@@ -17,4 +17,8 @@ Pour télécharger les images, il faut posséder un compte ASF et rentrer ses id
 ## Traitement
 
 Dans cette partie, on peut voir quelles images ont étées téléchargées et on peut effectuer un traitement sur ces images.
-Le traitement consiste pour l'instant seulement à un traitement des phases, mais pourrait étofé dans le futur
+Le traitement consiste pour l'instant seulement à un traitement des phases, mais pourrait étofé dans le futur.
+
+## Visualistion
+
+Avec ce module vous pourrez afficher les images qui sont déja traitées. Vous pourrez choisir de les affichées en géomètrie sol et quelle bandes de l'interférogramme à affichée.
