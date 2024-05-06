@@ -1,5 +1,5 @@
 import AreaSelector from "../../components/AreaSelector/AreaSelector.jsx";
-import {DownloadDataContext} from "../../components/DowloadDataProvider/DowloadDataProvider.jsx";
+import {DownloadDataContext} from "../../DataProviders/DowloadDataProvider/DowloadDataProvider.jsx";
 import DataDisplayer from "../../components/DataDisplayer/DataDisplayer.jsx";
 import {useContext, useEffect, useState} from "react";
 import DatePicker from "react-datepicker";

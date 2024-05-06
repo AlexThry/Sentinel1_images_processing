@@ -6,11 +6,12 @@ import RootLayout from "./routes/RootLayout/RootLayout.jsx";
 import FrontPage from "./routes/FrontPage/FrontPage.jsx";
 import DownloadPage from "./routes/DownloadPage/DownloadPage.jsx";
 import ProcessPage from "./routes/ProcessPage/ProcessPage.jsx";
-import {DowloadDataProvider} from "./components/DowloadDataProvider/DowloadDataProvider.jsx";
+import {DowloadDataProvider} from "./DataProviders/DowloadDataProvider/DowloadDataProvider.jsx";
 import ViewPage from "./routes/ViewPage/ViewPage.jsx";
 import DownloadDetails from "./components/DownloadDetails/DownloadDetails.jsx";
 import ProcessDetails from "./components/ProcessDetails/ProcessDetails.jsx";
-import {ProcessDataProvider} from "./components/ProcessDataProvider/ProcessDataProvider.jsx";
+import {ProcessDataProvider} from "./DataProviders/ProcessDataProvider/ProcessDataProvider.jsx";
+import {ViewDataProvider} from "./DataProviders/ViewDataProvider/ViewDataProvider.jsx";
 
 
 const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
                     {path: "/process/:id", element: <ProcessDetails/>}
                 ]
             },
-            {path: "/view", element: <ViewPage/>}
+            {path: "/view", element: <ViewDataProvider children={<ViewPage/>}/> }
         ]}
 ])
 

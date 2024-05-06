@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {ProcessDataContext} from "../ProcessDataProvider/ProcessDataProvider.jsx";
+import {ProcessDataContext} from "../../DataProviders/ProcessDataProvider/ProcessDataProvider.jsx";
 
 function ProcessSelector({setImagePack}) {
 
@@ -55,18 +55,33 @@ function ProcessSelector({setImagePack}) {
                             {
                                 Object.keys(downloaded).map((key, index) => {
                                     let date = downloaded[key]["date"]
-                                    let nbImages = Object.keys(downloaded[key]).length - 1
+                                    let nbImages = Object.keys(downloaded[key]["images"]).length
                                     let polygone = downloaded[key]["polygon"]
-                                    return (
-                                        <tr key={index}>
-                                            <td>{date}</td>
-                                            <td>{nbImages}</td>
-                                            <td><Link to={`${index}`} className={"hover:text-blue-500 hover:underline"}>Voir
-                                                plus -&gt;</Link></td>
-                                            <td><input type="radio" name={"selection"} className={"radio"} value={polygone}
-                                                       onChange={handleRadioChange} data-image={downloaded[key]["folder"]}/></td>
-                                        </tr>
-                                    )
+                                    if (nbImages > 1) {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{date}</td>
+                                                <td>{nbImages}</td>
+                                                <td><Link to={`${index}`} className={"hover:text-blue-500 hover:underline"}>Voir
+                                                    plus -&gt;</Link></td>
+                                                <td><input type="radio" name={"selection"} className={"radio"} value={polygone}
+                                                           onChange={handleRadioChange} data-image={downloaded[key]["folder"]}/></td>
+                                            </tr>
+                                        )
+                                    } else {
+                                        return (
+                                            <tr key={index}  className={"bg-red-200"} title={"Veuillez télécharger au moins 2 images"}>
+                                                <td>{date}</td>
+                                                <td>{nbImages}</td>
+                                                <td><Link to={`${index}`} className={"hover:text-blue-500 hover:underline"}>Voir
+                                                    plus -&gt;</Link></td>
+                                                <td><input type="radio" name={"selection"} className={"radio"}
+                                                           value={polygone}
+                                                           onChange={handleRadioChange}
+                                                           data-image={downloaded[key]["folder"]}/></td>
+                                            </tr>
+                                        )
+                                    }
                                 })
 
                             }
