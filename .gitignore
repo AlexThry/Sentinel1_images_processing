@@ -2,3 +2,7 @@ data/*
 asf_search.ipynb
 app/express-app/data/asf_set/*
 app/express-app/scripts/__pycache__/asf_search.cpython-37.pyc
+.DS_Store
+app/.DS_Store
+app/express-app/data/
+
