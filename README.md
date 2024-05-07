@@ -1,5 +1,10 @@
 # Sentinel1 Image Processing Application
 
+## Description
+
+This application is a web application that allows users to process Sentinel-1 phases images. It simplifies the process of downloading, processing and visualizing Sentinel-1 images compared to using ASF website for downloading and SNAP for processing / visualizing.
+
+
 ## Installation
 
 ### Requirements
