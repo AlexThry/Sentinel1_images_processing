@@ -1,1 +1,1 @@
-/Applications/snap/bin/gpt
+/usr/local/snap/bin/gpt
