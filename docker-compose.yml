@@ -19,7 +19,7 @@ services:
         source: save_frontend
         target: /Sentinel1_images_processing/app/express-app
     ports:
-      - "5173:5173"
+      - "3000:3000"
     tty: true
     stdin_open: true
 
