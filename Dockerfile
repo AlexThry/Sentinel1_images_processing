@@ -61,7 +61,6 @@ RUN /usr/bin/python3 -c 'from snappy import ProductIO'
 RUN /usr/bin/python3 /src/snap/about.py
 RUN /root/.snap/auxdata/gdal/gdal-3-2-1/bin/gdal-config --version
 
-
 # Install nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
@@ -84,9 +83,13 @@ RUN apt-get autoremove -y
 RUN apt-get clean -y
 RUN rm -rf /src
 
+#install supervisor
+
 WORKDIR /Sentinel1_images_processing/app/express-app
 
-# give permissions to every us
-RUN chmod -R 777 /Sentinel1_images_processing/app/express-app
+#install supervisor and add to path 
+RUN npm install supervisor -g
+ENV PATH /usr/local/share/npm/bin:$PATH
 
-CMD ["node", "app.js"]
+
+CMD ["supervisor", "app.js"]

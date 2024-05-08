@@ -15,9 +15,7 @@ services:
       context: .
       dockerfile: ./frontend/Dockerfile
     volumes:
-      - type: bind
-        source: save_frontend
-        target: /Sentinel1_images_processing/app/express-app
+      - save_frontend:/Sentinel1_images_processing/app/react-app
     ports:
       - "3000:3000"
     tty: true
