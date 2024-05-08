@@ -35,9 +35,9 @@ node app.js
 cd Sentinel1_images_processing/app/react-app
 npm run dev
 ```
-At this point, the application should be running on `http://localhost:5173/`.
+At this point, the application should be running on `http://localhost:3000/`.
 
 ## Usage
 
-When the application is running, go to `http://localhost:5173/` to have more information !
+When the application is running, go to `http://localhost:3000/` to have more information !
 Or just read [this](https://github.com/AlexThry/Sentinel1_images_processing/tree/main/app/react-app) readme file.
