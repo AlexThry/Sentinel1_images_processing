@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - save_backend:/Sentinel1_images_processing/app/express-app
+    ports:
+      - "8080:8080"
+    tty: true
+    stdin_open: true
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - type: bind
+        source: save_frontend
+        target: /Sentinel1_images_processing/app/express-app
+    ports:
+      - "5173:5173"
+    tty: true
+    stdin_open: true
+
+volumes:
+  save_backend:
+  save_frontend:

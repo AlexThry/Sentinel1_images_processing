@@ -15,6 +15,7 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends --no-install-suggests \
     sudo \
     build-essential \
+    curl \
     checkinstall \
     libgfortran5 \
     locales \
@@ -60,9 +61,20 @@ RUN /usr/bin/python3 -c 'from snappy import ProductIO'
 RUN /usr/bin/python3 /src/snap/about.py
 RUN /root/.snap/auxdata/gdal/gdal-3-2-1/bin/gdal-config --version
 
+
+# Install nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+# Install Node.js
+RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && nvm install v16.20.2"
+
+# Add Node.js to path
+ENV PATH /root/.nvm/versions/node/v16.20.2/bin:$PATH
+
 # Install the backend
 COPY backend /src/backend
 RUN bash /src/backend/install_backend.sh
+
 
 # Expose port 8080
 EXPOSE 8080
@@ -72,4 +84,9 @@ RUN apt-get autoremove -y
 RUN apt-get clean -y
 RUN rm -rf /src
 
-ENTRYPOINT ["/bin/bash"]
+WORKDIR /Sentinel1_images_processing/app/express-app
+
+# give permissions to every us
+RUN chmod -R 777 /Sentinel1_images_processing/app/express-app
+
+CMD ["node", "app.js"]
