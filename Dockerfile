@@ -15,7 +15,6 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends --no-install-suggests \
     sudo \
     build-essential \
-    curl \
     checkinstall \
     libgfortran5 \
     locales \
@@ -61,19 +60,9 @@ RUN /usr/bin/python3 -c 'from snappy import ProductIO'
 RUN /usr/bin/python3 /src/snap/about.py
 RUN /root/.snap/auxdata/gdal/gdal-3-2-1/bin/gdal-config --version
 
-# Install nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-
-# Install Node.js
-RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && nvm install v16.20.2"
-
-# Add Node.js to path
-ENV PATH /root/.nvm/versions/node/v16.20.2/bin:$PATH
-
 # Install the backend
 COPY backend /src/backend
 RUN bash /src/backend/install_backend.sh
-
 
 # Expose port 8080
 EXPOSE 8080
@@ -83,13 +72,15 @@ RUN apt-get autoremove -y
 RUN apt-get clean -y
 RUN rm -rf /src
 
-#install supervisor
 
-WORKDIR /Sentinel1_images_processing/app/express-app
-
-#install supervisor and add to path 
-RUN npm install supervisor -g
-ENV PATH /usr/local/share/npm/bin:$PATH
+# Change the ownership of the /Sentinel1_images_processing directory to myuser
+RUN chown -R root /Sentinel1_images_processing
+RUN chown -R root /usr/local/snap
+RUN chown -R root /root/.nvm/versions/node
 
 
-CMD ["supervisor", "app.js"]
+# Add Node.js to path
+ENV PATH /root/.nvm/versions/node/v16.20.2/bin:$PATH
+ENV PATH /Sentinel1_images_processing/app/express-app/venv/bin:$PATH
+
+ENTRYPOINT ["/bin/bash", "-c", "cd /Sentinel1_images_processing/app/express-app && node app.js"]
