@@ -27,7 +27,7 @@ Dans cette partie, on peut voir quelles images ont étées téléchargées et on
 Le traitement consiste pour l'instant seulement à un traitement des phases, mais pourrait étofé dans le futur.
 
 
-![process](./Readme_assets/Download.jpeg)
+![process](./Readme_assets/Process.jpeg)
 
 ## Visualisation
 
